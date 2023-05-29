@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2023 at 09:52 AM
+-- Generation Time: May 29, 2023 at 03:04 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.13
 
@@ -96,11 +96,12 @@ CREATE TABLE `tb_appoinment` (
 
 INSERT INTO `tb_appoinment` (`id_appoinment`, `id_konsultans`, `id_users`, `appoinment_number`, `topik`, `hari`, `jam`, `jenis_pajak`, `media`, `appoinment_status`, `unique_id_user`, `unique_id_konsultan`) VALUES
 (0, 2, 1, '6461', 'Pajak Kurs perusahaan', '2023-05-20', '09:45:00', 'PPh Pasal 22 dan 23', 'Live Chat', 'Accept', 0, 0),
-(9, 1, 6, '0005', 'Pembayaran bangunan', '2023-12-12', '14:52:12', 'PPh 21', 'Zoom', 'Booked', 0, 0),
+(9, 1, 6, '0005', 'Pembayaran bangunan', '2023-12-12', '14:52:12', 'PPh 21', 'Zoom', 'Accept', 0, 0),
 (15, 1, 8, '0008', 'Pembayaran tahunan PPh pasal 21', '2023-02-12', '14:40:05', 'PPh Badan', 'Live Chat', 'Booked', 0, 0),
-(24, 1, 6, '6466', 'Pembayaran tahunan PPh pasal 21', '2023-05-18', '11:50:00', 'PPh Tahunan Orang Pribadi', 'Live Chat', 'Booked', 4104143, 0),
-(25, 1, 1, '6461', 'Pembayaran tahunan PPh pasal 21', '2023-05-18', '12:50:00', 'PPh Pasal 21', 'Live Chat', 'Booked', 1230351, 0),
-(26, 2, 1, '6461230351', 'Pajak Kurs perusahaan', '2023-05-22', '14:15:00', 'PPh Pasal 22 dan 23', 'Live Chat', 'Accept', 1230351, 892512);
+(24, 1, 6, '6466', 'Pembayaran tahunan PPh pasal 21', '2023-05-18', '11:50:00', 'PPh Tahunan Orang Pribadi', 'Live Chat', 'Accept', 4104143, 0),
+(25, 1, 1, '6461', 'Pembayaran tahunan PPh pasal 21', '2023-05-18', '12:50:00', 'PPh Pasal 21', 'Live Chat', 'Accept', 1230351, 0),
+(26, 2, 1, '6461230351', 'Pajak Kurs perusahaan', '2023-05-22', '14:15:00', 'PPh Pasal 22 dan 23', 'Live Chat', 'Accept', 1230351, 892512),
+(27, 1, 6, '6464104143', 'Pembayaran tahunan PPh pasal 21', '2023-05-18', '10:20:00', 'PPh Pasal 25', 'Live Chat', 'Booked', 4104143, 0);
 
 -- --------------------------------------------------------
 
@@ -127,7 +128,8 @@ INSERT INTO `tb_chat` (`msg_id`, `incoming_msg_id`, `outgoing_msg_id`, `msg`, `c
 (4, 636452, 4104143, 'p', '2023-05-17 07:55:52'),
 (5, 636452, 4104143, 'selamat siang', '2023-05-17 08:02:10'),
 (6, 892512, 1230351, 'halo', '2023-05-17 10:49:23'),
-(7, 892512, 1230351, 'halo', '2023-05-17 11:46:48');
+(7, 892512, 1230351, 'halo', '2023-05-17 11:46:48'),
+(8, 636452, 4104143, 'halo', '2023-05-17 17:23:44');
 
 -- --------------------------------------------------------
 
@@ -204,7 +206,10 @@ INSERT INTO `tb_users` (`id_users`, `unique_id`, `email`, `password`, `nama`, `f
 (3, 0, 'mina@demo.com', 'password', 'Mina Hashikawa', 'default.png', 'Online', '2022-12-30 01:26:25'),
 (6, 4104143, 'alfan@demo.com', 'password', 'Alfan Rey', 'alfan.jpg', 'Online', '2022-12-30 15:17:04'),
 (7, 0, 'adehilman2002@gmail.com', 'password', 'Junanda Ika', 'default.png', 'Online', '2023-01-04 06:18:56'),
-(8, 0, 'junanda@gmail.com', 'password', 'Junanda Ika', 'default.png', 'Online', '2023-01-04 06:19:34');
+(8, 0, 'junanda@gmail.com', 'password', 'Junanda Ika', 'default.png', 'Online', '2023-01-04 06:19:34'),
+(9, 262745, 'ghifa@gmail.com', '$2y$10$Hv1JPLi745Mva34xzTjXTOxEo36bN2r64liaFD46NYU2cBA.63yhO', 'Ghifara', 'default.png', 'Online', '2023-05-29 11:21:49'),
+(10, 43729, 'ghifa@gmail.com', '$2y$10$OocyDl0serjqDVZJiuoYsOoW28edIsufnMZEgdFzYht72fF..Kp8y', 'Ghifara', 'default.png', 'Online', '2023-05-29 11:24:31'),
+(11, 1466190, 'gilgor@gmail.com', '$2y$10$9GbnMUP9NX7UIyCwH.L/l.I.fngczqhDbWTKSHgJZPp7NpqpgN.JS', 'Gilgor', 'default.png', 'Online', '2023-05-29 11:32:16');
 
 -- --------------------------------------------------------
 
@@ -295,13 +300,13 @@ ALTER TABLE `articles`
 -- AUTO_INCREMENT for table `tb_appoinment`
 --
 ALTER TABLE `tb_appoinment`
-  MODIFY `id_appoinment` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_appoinment` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `tb_chat`
 --
 ALTER TABLE `tb_chat`
-  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tb_konsultan`
@@ -313,7 +318,7 @@ ALTER TABLE `tb_konsultan`
 -- AUTO_INCREMENT for table `tb_users`
 --
 ALTER TABLE `tb_users`
-  MODIFY `id_users` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_users` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`
