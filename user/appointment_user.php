@@ -224,25 +224,22 @@ $q2 = mysqli_fetch_assoc($query);
                                                                 <td><a class="btn btn-warning bold btn-sm" data-toggle="modal" role="button" data-target="#modalApointment<?= $q2['appoinment_number'] ?>"></i>Reschedule</td>
 
                                                                 <?php
-                                                                if (time() >= $q2['appoinment_status']) {
+                                                                $currentDateTime = date('Y-m-d H:i:s');
+                                                                $dateString = $q2['hari'] . ' ' . $q2['jam']; // Menggabungkan hari dan jam dalam satu string
+                                                                $dateTime = date('Y-m-d H:i:s', strtotime($dateString)); // Mengonversi string menjadi format tanggal dan waktu yang diinginkan
+                                                                if (strtotime($currentDateTime) > strtotime($dateTime)) {
                                                                     // Tampilkan tombol "Print"
-                                                                    echo '
-    <td class="text-right">
-        <div class="table-action">
-            <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-                <i class="fas fa-print"></i> Print
-            </a>
-        </div>
-    </td>
-    ';
-                                                                } else {
-                                                                ?> <td class="text-right" disabled>
-                                                                        <div class="table-action" disabled>
-                                                                            <a class=" btn-sm bg-primary-dark" disabled>
+                                                                ?>
+                                                                    <td class="text-right">
+                                                                        <div class="table-action">
+                                                                            <a href="chat.php?user_id=<?= $q2['unique_id']; ?>" class="btn btn-sm bg-primary-light">
                                                                                 <i class="fa fa-paper-plane"></i> Chat
                                                                             </a>
                                                                         </div>
                                                                     </td>
+                                                                <?;
+                                                                } else {
+                                                                ?>
 
                                                                 <?php
                                                                 }
