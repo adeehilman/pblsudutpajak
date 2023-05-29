@@ -23,7 +23,7 @@ while ($row = mysqli_fetch_assoc($query)) {
         $output .=
             ' 
     
-                                                <a href="./chat-konsultan?user_id=' . $row['unique_id_user'] . '" class="media read-chat">
+                                                <a href="./konsultan/chat-konsultan?user_id=' . $row['unique_id'] . '" class="media read-chat">
 												<div class="media-img-wrap">
 													<div class="avatar avatar-away">
                                                     <img src="../img/users_profil/' . $row['foto_profil'] . '" alt="User Image" class="avatar-img rounded-circle">
