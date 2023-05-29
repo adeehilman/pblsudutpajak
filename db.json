@@ -1,0 +1,19 @@
+{
+ "users" :[ 
+  {"id":1,"nama":"ibuprofen","no_hp":"+375 362 101 9616","status":false},
+  {"id":2,"nama":"DOCUSATE SODIUM","no_hp":"+86 256 892 1775","status":true},
+  {"id":3,"nama":"Lidocaine Hydrochloride","no_hp":"+256 717 683 5606","status":false},
+  {"id":4,"nama":"pramipexole dihydrochloride","no_hp":"+86 185 801 1992","status":true},
+  {"id":5,"nama":"Arnica montana, Calcarea fluorica, Calcarea phosphorica, Calendula officinalis, Graphites, Hydrofluoricum acidum, Phytolacca decandra, Sabina, Silicea, Thiosinaminum, Thuja occidentalis","no_hp":"+7 660 738 8329","status":false},
+  {"id":6,"nama":"Methylnaltrexone bromide","no_hp":"+48 838 873 5325","status":true},
+  {"id":7,"nama":"Warfarin Sodium","no_hp":"+1 503 610 9822","status":false},
+  {"id":8,"nama":"lorazepam","no_hp":"+86 300 190 1556","status":false},
+  {"id":9,"nama":"SENNOSIDES","no_hp":"+1 309 405 8932","status":false},
+  {"id":10,"nama":"Sodium Fluoride and Triclosan","no_hp":"+1 168 773 3824","status":false},
+  {"id":11,"nama":"bacitracin zinc","no_hp":"+86 576 565 5747","status":true},
+  {"id":12,"nama":"Carvedilol","no_hp":"+351 581 329 9799","status":false},
+  {"id":13,"nama":"Valacyclovir Hydrochloride","no_hp":"+967 659 578 1465","status":true},
+  {"id":14,"nama":"rosiglitazone maleate and metformin hydrochloride","no_hp":"+46 472 793 8059","status":true},
+  {"id":15,"nama":"tizanidine hydrochloride","no_hp":"+48 994 352 8937","status":false}
+  ]
+}
