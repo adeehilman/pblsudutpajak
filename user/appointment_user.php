@@ -17,12 +17,14 @@ $q2 = mysqli_fetch_assoc($query);
 
 
 <head>
+    <script src="../css/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="../css/sweetalert2.min.css">
 
     <link rel="stylesheet" href="../konsultan/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="../konsultan/assets/css/style.css">
 
     <script src="../css/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="../css/sweetalert2.all.min.css">
+
 
 
     <!-- meta tag -->
@@ -68,7 +70,7 @@ $q2 = mysqli_fetch_assoc($query);
 <body>
 
     <!-- ======= Edit Section ======= -->
-    <?php include '../layout/navbar2.php'; ?>
+
     <!-- end navbar -->
     <!-- konsultasi -->
     <nav aria-label="breadcrumb breadcrumb-lg">
@@ -183,10 +185,10 @@ $q2 = mysqli_fetch_assoc($query);
                                                         <tr>
                                                             <th>Doctor</th>
                                                             <th>Appt Date</th>
-                                                            <th>Booking Date</th>
+                                                            <th>Booking Day</th>
                                                             <th>Amount</th>
-                                                            <th>Follow Up</th>
                                                             <th>Status</th>
+                                                            <th>Edit</th>
                                                             <th></th>
                                                         </tr>
                                                     </thead>
@@ -201,21 +203,25 @@ $q2 = mysqli_fetch_assoc($query);
                                                                         <a href="doctor-profile.html"><?= $q2['nama']; ?> <span><?= $q2['bidang']; ?></span></a>
                                                                     </h2>
                                                                 </td>
-                                                                <td><?php echo date("d F o", strtotime($q2['hari'])); ?> <span class="d-block text-info"><?php echo date(" H:i", strtotime($q2['jam'])); ?></span></td>
-                                                                <td>1 Nov 2019</td>
+                                                                <td><?php echo date("d F o", strtotime($q2['hari'])); ?> <span class="d-block text-info"><?php echo date(" H:i", strtotime($q2['jam'])); ?> WIB</span></td>
+                                                                <td><?php echo date("l", strtotime($q2['hari'])); ?></td>
                                                                 <td><?= $q2['jenis_pajak']; ?></td>
-                                                                <td>7 Nov 2019</td>
                                                                 <td>
                                                                     <?php
                                                                     if ($q2['appoinment_status'] == "Booked") {
-                                                                        echo '<span class="badge badge-pill bg-warning-light">On Going</span>';
+                                                                        echo '<span class="badge badge-pill bg-warning-light">Booked</span>';
                                                                     } else if ($q2['appoinment_status'] == "Cancel") {
                                                                         echo '<span class="badge badge-pill bg-danger-light">Cancel</span>';
                                                                     } else if ($q2['appoinment_status'] == "Accept") {
                                                                         echo '<span class="badge badge-pill bg-success-light">Accept</span>';
+                                                                    } else if ($q2['appoinment_status'] == "Accept") {
+                                                                        echo '<span class="badge badge-pill bg-success-light">Accept</span>';
+                                                                    } else if ($q2['appoinment_status'] == "Reschedule") {
+                                                                        echo '<span class="badge badge-pill bg-warning-light">Reschedule</span>';
                                                                     }
                                                                     ?>
                                                                 </td>
+                                                                <td><a class="btn btn-warning bold btn-sm" data-toggle="modal" role="button" data-target="#modalApointment<?= $q2['appoinment_number'] ?>"></i>Reschedule</td>
 
                                                                 <?php
                                                                 if (time() >= $q2['appoinment_status']) {
@@ -233,7 +239,7 @@ $q2 = mysqli_fetch_assoc($query);
                                                                 ?> <td class="text-right" disabled>
                                                                         <div class="table-action" disabled>
                                                                             <a class=" btn-sm bg-primary-dark" disabled>
-                                                                                <i class="fa fa-message"></i> Chat
+                                                                                <i class="fa fa-paper-plane"></i> Chat
                                                                             </a>
                                                                         </div>
                                                                     </td>
@@ -289,6 +295,97 @@ $q2 = mysqli_fetch_assoc($query);
 
     <!-- Modal -->
 
+    <!-- Button trigger modal -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalApointment<?= $q2['appoinment_number'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row ">
+                            <div class="col">
+                                <button type="button" class="close text-end" data-dismiss="modal">&times;</button>
+                                <div class="row justify-content-center">
+                                    <div class="col-12 ps-0">
+                                        <div class="w-100">
+                                            <h5 class="mb-4 w-75 fw-bold">Reschedule Jadwal</h5>
+                                        </div>
+                                        <!-- forms -->
+                                        <?php
+                                        // $kons = $_GET['kons'];
+                                        ?>
+                                        <form id="appointmentForm" action="../controller/appointment-reschedule.php" method="post" class="mb-4">
+                                            <div class="mb-2">
+                                                <!-- Start Input Date , Start Time and End Time -->
+                                                <div class="form-row">
+                                                    <!-- Start Input Date -->
+                                                    <div class="form-group col-md-6">
+                                                        <label for="inputDate" class="semi-bold">Tanggal</label>
+                                                        <input type="date" class="form-control" id="inputDate" name="tgl" value="<?= $q2['hari'] ?>" required />
+                                                        <input type="text" class="form-control" name="id" value="<?= $q2['id_appoinment'] ?>" hidden />
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="inputTime" class="semi-bold">Time</label>
+                                                        <div class="input-group date" id="timePicker">
+                                                            <input type="time" class="form-control timePicker" name="jam" value="<?= $q2['jam'] ?>">
+                                                            <span class="input-group-addon"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- End Input Date -->
+                                                </div>
+
+                                                <!-- <div class="mb-2">
+                                                    <label for="hariPertemuan" class="form-label">Rencana hari
+                                                        pertemuan</label>
+                                                    <input type="text" class="form-control py-2" name="tgl" placeholder="yyyy-mm-dd">
+                                                    <label for="noHp" class="form-label">Rencana jam pertemuan</label>
+                                                    <input type="text" class="form-control py-2 " name="jam" placeholder="mm-dd">
+                                                </div> -->
+                                                <label for="noHp" class="form-label semi-bold">Jenis Perpajakan</label>
+                                                <select class="form-control mr-1" id="inputStartTimeHour" name="bidang" required>
+                                                    <option value="<?= $q2['jenis_pajak']; ?>" selected><?= $q2['jenis_pajak']; ?></option>
+                                                    <option value="PPh Badan">PPh Badan</option>
+                                                    <option value="PPh Pasal 21">PPh Pasal 21</option>
+                                                    <option value="PPh Pasal 25">PPh Pasal 25</option>
+                                                    <option value="PPh Pasal 22 dan 23">PPh Pasal 22 dan 23</option>
+                                                    <option value="PPh Tahunan Orang Pribadi">PPh Tahunan Orang Pribadi</option>
+
+                                                </select>
+                                                <small class="form-text text-muted">Pilih jenis pajak yang ingin anda konsultasikan.</small>
+
+                                                <label for="noHp" class="form-label semi-bold">Media</label>
+                                                <select class="form-control mr-1" id="inputStartTimeHour" name="media" required>
+                                                    <option value="<?= $q2['media']; ?>" selected><?= $q2['media']; ?></option>
+                                                    <option value="Live Chat">Live Chat</option>
+                                                    <option value="Zoom" style="color: gray" disabled>Zoom (Segera)</option>
+
+
+
+                                                </select>
+                                                <div class="form-group mt-5 mb-3">
+                                                    <!-- <button type="submit"
+                                            class="form-control btn btn-primary rounded submit px-3 py-2 fw-bold">Buat
+                                            Janji Temu Online</button> -->
+                                                    <button type="button" class="btn btn-warning btn-md d-flex justify-content-center rounded submit bold" style="width: 100%;" onclick="showConfirmation()">Reschedule</button>
+
+                                                </div>
+                                                <small class="form-text text-muted">*Sesuai ketentuan yang berlaku</small>
+                                        </form>
+                                        <!-- forms END -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 
 
@@ -326,12 +423,64 @@ $q2 = mysqli_fetch_assoc($query);
     <script src="../js/contact.form.js"></script>
     <!-- main js -->
     <script src="../konsultan/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../css/sweetalert2.all.min.js"></script>
     <script src="../konsultan/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
     <script src="../js/main.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+    <script>
+        var today = new Date();
+        var minDate = today.setDate(today.getDate() + 1);
+
+        $('#datePicker').datetimepicker({
+            useCurrent: false,
+            format: "MM/DD/YYYY",
+            minDate: minDate
+        });
+
+        var firstOpen = true;
+        var time;
+
+        $('#timePicker').datetimepicker({
+            useCurrent: false,
+            format: "hh:mm A"
+        }).on('dp.show', function() {
+            if (firstOpen) {
+                time = moment().startOf('day');
+                firstOpen = false;
+            } else {
+                time = "01:00 PM"
+            }
+
+            $(this).data('DateTimePicker').date(time);
+        });
+
+        // Fungsi untuk menampilkan konfirmasi SweetAlert2
+
+        // Fungsi untuk menampilkan konfirmasi SweetAlert2
+        function showConfirmation() {
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Apakah Anda yakin ingin mengubah data?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jika konfirmasi "Ya" diklik, submit form secara manual
+                    document.getElementById('appointmentForm').submit();
+                }
+            });
+        }
+    </script>
 
 
 </body>

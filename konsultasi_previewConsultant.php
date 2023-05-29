@@ -443,7 +443,7 @@ $q = mysqli_fetch_assoc($query);
                                                 <label for="inputDate" class="semi-bold">Topik</label>
                                                 <input type="text" class="form-control py-2" name="topik" placeholder="">
                                                 <input type="text" class="form-control py-2" name="konsultans" value="<?= $_GET['kons']; ?>" placeholder="topik" hidden>
-                                                <input type="text" class="form-control py-2" name="unique_id_k" value="<?= $q['unique_id']; ?>" placeholder="topik" hidden>
+                                                <input type="text" class="form-control py-2" name="unique_id_k" value="<?= $q['unique_id']; ?>" hidden>
                                                 <input type="text" class="form-control py-2" name="users" value="<?= $_SESSION['id']; ?>" hidden>
                                                 <input type="text" class="form-control py-2" name="unique_id" value="<?= $_SESSION['unique_id']; ?>" hidden>
                                                 <input type="text" class="form-control py-2" name="media" value="Live Chat" placeholder="topik" hidden>
@@ -501,6 +501,7 @@ $q = mysqli_fetch_assoc($query);
                                             Janji Temu Online</button> -->
                                                     <button type="submit" class="btn btn-primary btn-md d-flex justify-content-center rounded submit bold " role="button" style="width:
                                                     100%;">Janji Temu Online</button>
+
                                                 </div>
                                                 <small class="form-text text-muted">*Sesuai ketentuan yang berlaku</small>
                                         </form>

@@ -23,7 +23,7 @@ $time = $jam . ':00';
 
 mysqli_query($koneksi, ("INSERT INTO `tb_appoinment`(`id_appoinment`, `id_konsultans`, `id_users`, 
 `appoinment_number`, `topik`, `hari`, `jam`, `jenis_pajak`, `media`, `appoinment_status`,`unique_id_user`) VALUES 
-(NULL,'$id_kon','$id_user','$xx','$topik','$tgl','$time','$bidang','$media','Booked','$unique_id')"));
+(NULL,'$id_kon','$id_user','$xx','$topik','$tgl','$time','$bidang','$media','Booked','$unique_id','$unique_id_k')"));
 
 $q2 = mysqli_query($koneksi, ("INSERT INTO `tb_chat`(`msg_id`, `incoming_msg_id`, `outgoing_msg_id`, `msg`, `created_at`) VALUES 
 (NULL,'','$uniquq_id_k','$unique_id',NOW()"));
