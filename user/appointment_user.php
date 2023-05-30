@@ -306,7 +306,7 @@ $q2 = mysqli_fetch_assoc($query);
                                 <div class="row justify-content-center">
                                     <div class="col-12 ps-0">
                                         <div class="w-100">
-                                            <h5 class="mb-4 w-75 fw-bold">Reschedule Jadwal</h5>
+                                            <h5 class="mb-4 w-75 fw-bold">Ubah</h5>
                                         </div>
                                         <!-- forms -->
                                         <?php
@@ -318,16 +318,36 @@ $q2 = mysqli_fetch_assoc($query);
                                                 <div class="form-row">
                                                     <!-- Start Input Date -->
                                                     <div class="form-group col-md-6">
-                                                        <label for="inputDate" class="semi-bold">Tanggal</label>
-                                                        <input type="date" class="form-control" id="inputDate" name="tgl" value="<?= $q2['hari'] ?>" required />
-                                                        <input type="text" class="form-control" name="id" value="<?= $q2['id_appoinment'] ?>" hidden />
+                                                        <label for="inputDate" class="semi-bold">Tanggal lama</label>
+                                                        <input type="date" class="form-control" id="inputDate" name="tgl" value="<?= $q2['hari'] ?>" disabled />
+
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label for="inputTime" class="semi-bold">Time</label>
+                                                        <label for="inputDate" class="semi-bold">Tanggal Baru</label>
+                                                        <input type="date" class="form-control" id="inputTanggalBaru" name="tgl" value="<?= $q2['hari'] ?>" required />
+                                                        <input type="text" class="form-control" name="id" value="<?= $q2['id_appoinment'] ?>" hidden />
+                                                    </div>
+
+                                                    <div class="form-group col-md-6">
+                                                        <label for="inputTime" class="semi-bold">Jam lama</label>
                                                         <div class="input-group date" id="timePicker">
-                                                            <input type="time" class="form-control timePicker" name="jam" value="<?= $q2['jam'] ?>">
+                                                            <input type="time" class="form-control timePicker" name="jam" value="<?= $q2['jam'] ?>" disabled>
                                                             <span class="input-group-addon"></span>
                                                         </div>
+                                                    </div>
+
+                                                    <div class="form-group col-md-6">
+                                                        <label for="inputTime" class="semi-bold">Jam Baru</label>
+                                                        <div class="input-group date">
+                                                            <input type="time" class="form-control" id="inputJamBaru" name="jam" value="<?= $q2['jam'] ?>">
+                                                            <span class="input-group-addon"></span>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="form-group col-md-12 p-0 m-0">
+
+                                                        <small style="display:flex; justify-content:right; color: red;">Masukkan sesuai jam kerja 08:00 - 18:00 WIB</small>
                                                     </div>
 
                                                     <!-- End Input Date -->
@@ -350,7 +370,7 @@ $q2 = mysqli_fetch_assoc($query);
                                                     <option value="PPh Tahunan Orang Pribadi">PPh Tahunan Orang Pribadi</option>
 
                                                 </select>
-                                                <small class="form-text text-muted">Pilih jenis pajak yang ingin anda konsultasikan.</small>
+                                                <small class="form-text left text-muted pb-0 mb-0">Pilih jenis pajak yang ingin anda konsultasikan.</small>
 
                                                 <label for="noHp" class="form-label semi-bold">Media</label>
                                                 <select class="form-control mr-1" id="inputStartTimeHour" name="media" required>
@@ -361,6 +381,7 @@ $q2 = mysqli_fetch_assoc($query);
 
 
                                                 </select>
+
                                                 <div class="form-group mt-5 mb-3">
                                                     <!-- <button type="submit"
                                             class="form-control btn btn-primary rounded submit px-3 py-2 fw-bold">Buat
@@ -368,7 +389,7 @@ $q2 = mysqli_fetch_assoc($query);
                                                     <button type="button" class="btn btn-warning btn-md d-flex justify-content-center rounded submit bold" style="width: 100%;" onclick="showConfirmation()">Reschedule</button>
 
                                                 </div>
-                                                <small class="form-text text-muted">*Sesuai ketentuan yang berlaku</small>
+
                                         </form>
                                         <!-- forms END -->
 
@@ -431,31 +452,59 @@ $q2 = mysqli_fetch_assoc($query);
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
     <script>
-        var today = new Date();
-        var minDate = today.setDate(today.getDate() + 1);
+        // Mendapatkan tanggal lama dan jam lama
+        var tanggalLama = new Date();
+        var jamLama = "14:05";
 
-        $('#datePicker').datetimepicker({
-            useCurrent: false,
-            format: "MM/DD/YYYY",
-            minDate: minDate
-        });
+        // Mendapatkan elemen input tanggal dan waktu baru
+        var tanggalBaruInput = document.getElementById("inputTanggalBaru");
+        var jamBaruInput = document.getElementById("inputJamBaru");
 
-        var firstOpen = true;
-        var time;
+        // Mengatur atribut min pada input tanggal baru
+        tanggalBaruInput.setAttribute("min", formatDate(tanggalLama));
 
-        $('#timePicker').datetimepicker({
-            useCurrent: false,
-            format: "hh:mm A"
-        }).on('dp.show', function() {
-            if (firstOpen) {
-                time = moment().startOf('day');
-                firstOpen = false;
-            } else {
-                time = "01:00 PM"
+        // Mengatur atribut min pada input waktu baru
+        jamBaruInput.setAttribute("min", jamLama);
+
+        // Fungsi untuk memformat tanggal menjadi format YYYY-MM-DD
+        function formatDate(date) {
+            var year = date.getFullYear();
+            var month = (date.getMonth() + 1).toString().padStart(2, "0");
+            var day = date.getDate().toString().padStart(2, "0");
+            return year + "-" + month + "-" + day;
+        }
+
+        // Mendapatkan elemen input waktu baru
+        var jamBaruInput = document.getElementById("inputJamBaru");
+
+        // Mendapatkan jam kerja kantor (jam 8 pagi hingga 6 sore)
+        var jamKerjaMulai = 8;
+        var jamKerjaSelesai = 18;
+
+        // Menghitung nilai minimum yang valid untuk atribut min
+        var minJam = jamKerjaMulai.toString().padStart(2, "0") + ":00";
+
+        // Mengatur atribut min pada input waktu baru
+        jamBaruInput.setAttribute("min", minJam);
+
+        // Fungsi untuk membatasi input waktu baru sesuai dengan jam kerja
+        function limitJamBaru() {
+            var jamBaru = jamBaruInput.value;
+            var jamBaruParsed = parseInt(jamBaru.split(":")[0]);
+
+            if (jamBaruParsed < jamKerjaMulai || jamBaruParsed >= jamKerjaSelesai) {
+                // Jam baru berada di luar jam kerja, set nilai input waktu baru ke jam kerja mulai
+                jamBaruInput.value = "";
             }
+        }
 
-            $(this).data('DateTimePicker').date(time);
-        });
+        // Menambahkan event listener untuk membatasi input waktu baru saat nilainya berubah
+        jamBaruInput.addEventListener("input", limitJamBaru);
+
+
+
+
+
 
         // Fungsi untuk menampilkan konfirmasi SweetAlert2
 

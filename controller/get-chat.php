@@ -19,9 +19,10 @@ if (isset($_SESSION['unique_id'])) {
     if (mysqli_num_rows($query) > 0) {
         while ($row = mysqli_fetch_assoc($query)) {
             if ($row['outgoing_msg_id'] === $outgoing_id) {
-                $output .= '<div class="chat outgoing">
-                                <div class="details">
-                                    <p>' . $row['msg'] . '</p>
+                $output .= '<div class="chat outgoing" >
+                                <div class="details" >
+                                    <p style=" background: #09c778">' . $row['msg'] . ' <small style="font-size: 10px; color:#fff; bottom: 0; right: 0; float: right; text-align: right; margin-left:10px;">' . date('H:i', strtotime($row['created_at'])) . '</small> </p>
+                                    
                                 </div>
                                 </div>';
             } else {

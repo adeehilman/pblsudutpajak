@@ -271,12 +271,13 @@ if (!isset($_SESSION['unique_id'])) {
                                                                 .chat-box .outgoing .details {
                                                                     margin-left: auto;
                                                                     max-width: calc(100% - 130px);
+
                                                                 }
 
                                                                 .outgoing .details p {
-                                                                    background: #333;
+                                                                    background: #09c778;
                                                                     color: #fff;
-                                                                    border-radius: 18px 18px 0 18px;
+                                                                    border-radius: 10px 10px 0 15px;
                                                                 }
 
                                                                 .chat-box .incoming {
@@ -322,7 +323,7 @@ if (!isset($_SESSION['unique_id'])) {
                                                                     width: 55px;
                                                                     border: none;
                                                                     outline: none;
-                                                                    background: #333;
+                                                                    background: #09c778;
                                                                     font-size: 19px;
                                                                     cursor: pointer;
                                                                     opacity: 0.7;
@@ -341,13 +342,13 @@ if (!isset($_SESSION['unique_id'])) {
                                                                     <div class="chat-box">
 
                                                                     </div>
-                                                                    <form action="#" class="typing-area">
-                                                                        <input type="text" class="incoming_id" name="incoming_id" value="<?php echo $user_id; ?>" hidden>
-                                                                        <input type="text" name="message" class="input-field" placeholder="Type Message" autocomplete="off">
-                                                                        <button><i class="fa fa-telegram-plane"></i></button>
-                                                                    </form>
 
                                                                 </div>
+                                                                <form action="#" class="typing-area">
+                                                                    <input type="text" class="incoming_id" name="incoming_id" value="<?php echo $user_id; ?>" hidden>
+                                                                    <input type="text" name="message" class="input-field" placeholder="Type Message" autocomplete="off">
+                                                                    <button><i class="fa fa-paper-plane"></i></button>
+                                                                </form>
                                                             </div>
                                                             <div class="chat-footer">
 
