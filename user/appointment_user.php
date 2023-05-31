@@ -227,7 +227,7 @@ $q2 = mysqli_fetch_assoc($query);
                                                                 $currentDateTime = date('Y-m-d H:i:s');
                                                                 $dateString = $q2['hari'] . ' ' . $q2['jam']; // Menggabungkan hari dan jam dalam satu string
                                                                 $dateTime = date('Y-m-d H:i:s', strtotime($dateString)); // Mengonversi string menjadi format tanggal dan waktu yang diinginkan
-                                                                if (strtotime($currentDateTime) > strtotime($dateTime)) {
+                                                                if (strtotime($currentDateTime) > strtotime($dateTime) && $q2['appoinment_status'] == 'Accept') {
                                                                     // Tampilkan tombol "Print"
                                                                 ?>
                                                                     <td class="text-right">
@@ -306,7 +306,7 @@ $q2 = mysqli_fetch_assoc($query);
                                 <div class="row justify-content-center">
                                     <div class="col-12 ps-0">
                                         <div class="w-100">
-                                            <h5 class="mb-4 w-75 fw-bold">Ubah</h5>
+                                            <h5 class="mb-4 w-75 fw-bold">Ubah Jadwal Konsultasi Anda</h5>
                                         </div>
                                         <!-- forms -->
                                         <?php
@@ -316,6 +316,15 @@ $q2 = mysqli_fetch_assoc($query);
                                             <div class="mb-2">
                                                 <!-- Start Input Date , Start Time and End Time -->
                                                 <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="inputDate" class="semi-bold">Tanggal</label>
+                                                        <input type="date" class="form-control" id="inputDate" name="tgl" value="<?= $q2['hari'] ?>" disabled />
+
+                                                    </div>
+
+                                                    <small class="form-text text-muted">Pilih jenis pajak yang ingin anda konsultasikan.</small>
+
+                                                    <head class="form-text text-muted">Pilih jenis pajak yang ingin anda konsultasikan.</head>
                                                     <!-- Start Input Date -->
                                                     <div class="form-group col-md-6">
                                                         <label for="inputDate" class="semi-bold">Tanggal lama</label>
@@ -439,6 +448,7 @@ $q2 = mysqli_fetch_assoc($query);
     <script src="../js/plugins.js"></script>
     <!-- Contact js -->
     <script src="../js/contact.form.js"></script>
+    <script src="../js/moment.js"></script>
     <!-- main js -->
     <script src="../konsultan/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -508,24 +518,59 @@ $q2 = mysqli_fetch_assoc($query);
 
         // Fungsi untuk menampilkan konfirmasi SweetAlert2
 
-        // Fungsi untuk menampilkan konfirmasi SweetAlert2
         function showConfirmation() {
-            Swal.fire({
-                title: 'Konfirmasi',
-                text: 'Apakah Anda yakin ingin mengubah data?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Jika konfirmasi "Ya" diklik, submit form secara manual
-                    document.getElementById('appointmentForm').submit();
-                }
-            });
+            var selectedDate = new Date(document.getElementById('inputDate').value);
+            var selectedTime = moment(document.getElementById('inputTime').value, 'HH:mm A');
+
+            var today = new Date();
+            today.setHours(0, 0, 0, 0); // Mengatur jam menjadi 00:00:00 untuk membandingkan dengan tanggal yang dipilih
+
+            if (selectedDate < today || (selectedDate.getTime() === today.getTime() && selectedTime < moment())) {
+                Swal.fire({
+                    title: 'Peringatan',
+                    text: 'Anda tidak dapat memilih tanggal atau waktu yang sudah lewat.',
+                    icon: 'warning',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                Swal.fire({
+                    title: 'Konfirmasi',
+                    text: 'Apakah Anda yakin ingin mengubah data?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Jika konfirmasi "Ya" diklik, submit form secara manual
+                        document.getElementById('appointmentForm').submit();
+                    }
+                });
+            }
         }
+
+        // Fungsi untuk menampilkan konfirmasi SweetAlert2
+
+        // function showConfirmation() {
+        //     Swal.fire({
+        //         title: 'Konfirmasi',
+        //         text: 'Apakah Anda yakin ingin mengubah data?',
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonColor: '#3085d6',
+        //         cancelButtonColor: '#d33',
+        //         confirmButtonText: 'Ya',
+        //         cancelButtonText: 'Batal'
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             // Jika konfirmasi "Ya" diklik, submit form secara manual
+        //             document.getElementById('appointmentForm').submit();
+        //         }
+        //     });
+        // }
     </script>
 
 

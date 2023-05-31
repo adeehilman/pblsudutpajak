@@ -29,7 +29,7 @@ if (isset($_SESSION['unique_id'])) {
                 $output .= '<div class="chat incoming">
                                 
                                 <div class="details">
-                                    <p>' . $row['msg'] . '</p>
+                                    <p>' . $row['msg'] . '<small style="font-size: 10px; color:#fff; bottom: 0; right: 0; float: right; text-align: right; margin-left:10px;">' . date('H:i', strtotime($row['created_at'])) . '</small></p>
                                 </div>
                                 </div>';
             }
