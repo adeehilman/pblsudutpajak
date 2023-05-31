@@ -1,19 +1,54 @@
+
 {
- "users" :[ 
-  {"id":1,"nama":"ibuprofen","no_hp":"+375 362 101 9616","status":false},
-  {"id":2,"nama":"DOCUSATE SODIUM","no_hp":"+86 256 892 1775","status":true},
-  {"id":3,"nama":"Lidocaine Hydrochloride","no_hp":"+256 717 683 5606","status":false},
-  {"id":4,"nama":"pramipexole dihydrochloride","no_hp":"+86 185 801 1992","status":true},
-  {"id":5,"nama":"Arnica montana, Calcarea fluorica, Calcarea phosphorica, Calendula officinalis, Graphites, Hydrofluoricum acidum, Phytolacca decandra, Sabina, Silicea, Thiosinaminum, Thuja occidentalis","no_hp":"+7 660 738 8329","status":false},
-  {"id":6,"nama":"Methylnaltrexone bromide","no_hp":"+48 838 873 5325","status":true},
-  {"id":7,"nama":"Warfarin Sodium","no_hp":"+1 503 610 9822","status":false},
-  {"id":8,"nama":"lorazepam","no_hp":"+86 300 190 1556","status":false},
-  {"id":9,"nama":"SENNOSIDES","no_hp":"+1 309 405 8932","status":false},
-  {"id":10,"nama":"Sodium Fluoride and Triclosan","no_hp":"+1 168 773 3824","status":false},
-  {"id":11,"nama":"bacitracin zinc","no_hp":"+86 576 565 5747","status":true},
-  {"id":12,"nama":"Carvedilol","no_hp":"+351 581 329 9799","status":false},
-  {"id":13,"nama":"Valacyclovir Hydrochloride","no_hp":"+967 659 578 1465","status":true},
-  {"id":14,"nama":"rosiglitazone maleate and metformin hydrochloride","no_hp":"+46 472 793 8059","status":true},
-  {"id":15,"nama":"tizanidine hydrochloride","no_hp":"+48 994 352 8937","status":false}
-  ]
+ "articles": [
+    {
+        "id": "1",
+        "judul": "Pajak merupakan iuran wajib dari rakyat kepada negaranya",
+        "isi": "Pajak adalah iuran rakyat kepada kas negara berdasarkan undang-undang (sehingga dapat dipaksakan) dengan tiada mendapat balas jasa secara langsung. Pajak dipungut berdasarkan norma-norma hukum guna menutup biaya produksi barang-barang dan jasa kolektif untuk mencapai kesejahteraan umum.",
+        "cover": "https://i.ibb.co/6Z6QKC1/1669184470.jpg",
+        "kategori": "Information"
+    },
+    {
+        "id": "2",
+        "judul": "Pajak merupakan iuran wajib dari rakyat kepada negaranya",
+        "isi": "Pajak dapat di berikan kepada negara nya",
+        "cover": "https://i.ibb.co/zPkyMZ8/1669184558.jpg",
+        "kategori": "Information"
+    },
+    {
+        "id": "3",
+        "judul": "Pajak merupakan iuran wajib dari rakyat kepada negaranya",
+        "isi": "pajak dapat dibayarkan kepada pengguna wajib pajak",
+        "cover": "https://i.ibb.co/PTtCfRm/1669184597.jpg",
+        "kategori": "Information"
+    },
+    {
+        "id": "4",
+        "judul": "Pajak merupakan iuran wajib dari rakyat kepada negaranya",
+        "isi": "pajak dapat menyubang kepada negara",
+        "cover": "https://i.ibb.co/CmKRJ0D/1669184637.jpg",
+        "kategori": "Information"
+    },
+    {
+        "id": "5",
+        "judul": "Bayar Pajak",
+        "isi": "Bayar pajak merupapakan iuran wajib kepada negara",
+        "cover": "https://i.ibb.co/5R9ftyt/1669120672.jpg",
+        "kategori": "Information"
+    },
+    {
+        "id": "6",
+        "judul": "Pajak terbaru",
+        "isi": "PPh atau Pajak Penghasilan adalah jenis pajak yang dibebankan kepada orang pribadi maupun badan usaha atas penghasilan yang diterima.\r\n\r\nPenghasilan yang menjadi objek pajak, meliputi gaji, upah, tunjangan, honor, komisi, hadiah, laba usaha, keuntungan karena penjualan atau pengalihan harta, dan lainnya yang diatur dalam aturan perundang-undangan.",
+        "cover": "https://i.ibb.co/RgYys3N/1669812566.jpg",
+        "kategori": "Information"
+    },
+    {
+        "id": "7",
+        "judul": "Penarikan pajak terbaru",
+        "isi": "alam hal Wajib Pajak diperbolehkan menunda penyampaian Surat Pemberitahuan Tahunan dan ternyata penghitungan sementara pajak yang terutang kurang dari jumlah pajak yang sebenarnya terutang atas kekurangan pembayaran pajak tersebut, dikenai bunga sebesar 2% (dua persen) per bulan yang dihitung dari saat berakhirnya batas waktu penyampaian Surat Pemberitahuan Tahunan sampai dengan tanggal dibayarnya kekurangan pembayaran tersebut dan bagian dari bulan dihitung penuh 1 (satu) bulan.",
+        "cover": "1https://i.ibb.co/F7BXL9V/1669812615.jpg",
+        "kategori": "Blog"
+    }
+]
 }
