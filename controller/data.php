@@ -14,12 +14,12 @@ while ($row = mysqli_fetch_assoc($query)) {
     } else {
         $you = "";
     }
-    ($row['status'] == "Offline now") ? $offline = "offline" : $offline = "";
+    ($row['status'] == "Offline") ? $offline = "offline" : $offline = "";
     ($outgoing_id == $row['unique_id']) ? $hid_me = "hide" : $hid_me = "";
 
 
     if ($row['unique_id_konsultan'] == $outgoing_id) {
-        // melakukan sesuatu jika unique_id_konsultan sama dengan outgoing_id
+        // melakukan sesuatu jika unique_id_konsultan sama dengan outgoing_id (SISI KONSULTAN)
         $output .=
             ' 
     
@@ -41,7 +41,7 @@ while ($row = mysqli_fetch_assoc($query)) {
 												</div>
 											</a>';
     } else {
-        // melakukan sesuatu jika unique_id_konsultan sama dengan outgoing_id
+        // melakukan sesuatu jika unique_id_user sama dengan outgoing_id (SISI KLIEN)
         $output .=
             ' 
     
@@ -57,8 +57,7 @@ while ($row = mysqli_fetch_assoc($query)) {
                                                     <div class="user-last-chat">' . $you . $msg . '</div>
 													</div>
 													<div>
-														<div class="last-chat-time block">2 min</div>
-														<div class="badge badge-success badge-pill">15</div>
+														
 													</div>
 												</div>
 											</a>';

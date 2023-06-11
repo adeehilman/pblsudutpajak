@@ -8,8 +8,8 @@ if (!isset($_SESSION['unique_id'])) {
     header("location: ../layout/modalLogin.php ");
 }
 $id = $_SESSION['id'];
-
-$query = mysqli_query($koneksi, "SELECT * FROM tb_appoinment AS a INNER JOIN tb_users AS u ON a.id_users = u.id_users INNER JOIN tb_konsultan AS k ON a.id_konsultans = k.id_konsultan WHERE a.id_users = '$id'");
+$id_2 = $_GET['id_reschedule'];
+$query = mysqli_query($koneksi, "SELECT * FROM tb_appoinment AS a INNER JOIN tb_users AS u ON a.id_users = u.id_users INNER JOIN tb_konsultan AS k ON a.id_konsultans = k.id_konsultan WHERE a.id_appoinment = '$id_2'");
 $q2 = mysqli_fetch_assoc($query);
 
 ?>
@@ -77,7 +77,8 @@ $q2 = mysqli_fetch_assoc($query);
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="../konsultasi.php">Konsultasi</a></li>
             <li class="breadcrumb-item"><a href="#">Akun</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Appointment</li>
+            <li class="breadcrumb-item"><a href="appointment_user.php">Appointment</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Reschedule</li>
         </ol>
     </nav>
     <section>
@@ -110,7 +111,7 @@ $q2 = mysqli_fetch_assoc($query);
                                     </li>
                                     <li class="active">
                                         <a href="appointment_user.php">
-                                            <i class="fa fa-calendar"></i>
+                                            <i class="fas fa-calendar-check"></i>
                                             <span>Appointments</span>
                                         </a>
                                     </li>
@@ -121,7 +122,7 @@ $q2 = mysqli_fetch_assoc($query);
                                         </a>
                                     </li>
                                     <li>
-                                        <a>
+                                        <a href="profile-settings.html">
                                             <i class="fa fa-video"></i>
                                             <span>Zoom</span>
                                             <large class="unread-msg" style="background-color: orange;">soon</large>
@@ -179,95 +180,136 @@ $q2 = mysqli_fetch_assoc($query);
 
                             <!-- Tab Content -->
                             <div class="tab-content pt-0">
-                                <?php
-                                // Cek apakah appointment berhasil dibatalkan
-                                if (isset($_GET['success']) && $_GET['success'] == 'true') {
-                                    echo '<div class="alert alert-success" role="alert">Appointment berhasil dibatalkan.</div>';
-                                }
-                                ?>
 
                                 <!-- Appointment Tab -->
-                                <div id="pat_appointments" class="tab-pane fade show active">
-                                    <div class="card card-table mb-0">
-                                        <div class="card-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-hover table-center mb-0">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Konsultan</th>
-                                                            <th>Appt Date</th>
-                                                            <th>Booking Day</th>
-                                                            <th>Amount</th>
-                                                            <th>Status</th>
-                                                            <th>Edit</th>
-                                                            <th></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php foreach ($query as $q2) : ?>
-                                                            <tr>
-                                                                <td>
-                                                                    <h2 class="table-avatar">
-                                                                        <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                            <img class="avatar-img rounded-circle" src="../img/konsultan_profil/<?= $q2['profil_pic']; ?>" alt="User Image">
-                                                                        </a>
-                                                                        <a href="doctor-profile.html"><?= $q2['nama']; ?> <span><?= $q2['bidang']; ?></span></a>
-                                                                    </h2>
-                                                                </td>
-                                                                <td><?php echo date("d F o", strtotime($q2['hari'])); ?> <span class="d-block text-info"><?php echo date(" H:i", strtotime($q2['jam'])); ?> WIB</span></td>
-                                                                <td><?php echo date("l", strtotime($q2['hari'])); ?></td>
-                                                                <td><?= $q2['jenis_pajak']; ?></td>
-                                                                <td>
-                                                                    <?php
-                                                                    if ($q2['appoinment_status'] == "Booked") {
-                                                                        echo '<span class="badge badge-pill bg-warning-light">Booked</span>';
-                                                                    } else if ($q2['appoinment_status'] == "Cancel") {
-                                                                        echo '<span class="badge badge-pill bg-danger-light">Cancel</span>';
-                                                                    } else if ($q2['appoinment_status'] == "Accept") {
-                                                                        echo '<span class="badge badge-pill bg-success-light">Accept</span>';
-                                                                    } else if ($q2['appoinment_status'] == "Reschedule") {
-                                                                        echo '<span class="badge badge-pill bg-warning-light">Reschedule</span>';
-                                                                    }
-                                                                    ?>
-                                                                </td>
-                                                                <td>
-                                                                    <a class="btn btn-warning bold btn-sm" href="reschedule_appt.php?id_reschedule=<?= $q2['id_appoinment']; ?>">
-                                                                        Reschedule
-                                                                    </a>
+                                <div class="table-responsive">
+                                    <a class="btn btn-light" href="appointment_user.php" role="button"><span><i class="fa fa-arrow-left"></i></span> kembali</a>
+                                    <div class="container-fluid">
+                                        <div class="row ">
+                                            <div class="col">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-12 ps-0">
+                                                        <div class="w-100">
+                                                            <h5 class="mb-4 w-75 fw-bold">Ubah Jadwal Konsultasi Anda</h5>
+                                                        </div>
+                                                        <!-- forms -->
+                                                        <?php
+                                                        // $kons = $_GET['kons'];
+                                                        ?>
+                                                        <form id="appointmentForm" action="../controller/appointment-reschedule.php" method="post" class="mb-4">
+                                                            <div class="mb-2">
+                                                                <!-- Start Input Date , Start Time and End Time -->
+                                                                <label class="bold" style="color: dark-yellow;;">Appointment ID: <?= $q2['appoinment_number']; ?></label>
+                                                                <div class="form-row">
 
-                                                                </td>
-                                                                <td>
-                                                                    <button type="button" class="btn btn-danger btn-md  rounded submit bold" onclick="showConfirmationCancel(<?= $q2['id_appoinment']; ?>)"><i class="fa fa-times"></i></button>
-                                                                </td>
+                                                                    <div class="form-group col-md-12">
 
 
-                                                                <?php
-                                                                date_default_timezone_set('Asia/Jakarta');
-                                                                $currentDateTime = date('Y-m-d H:i:s');
-                                                                $dateString = $q2['hari'] . ' ' . $q2['jam'];
-                                                                $dateTime = date('Y-m-d H:i:s', strtotime($dateString));
-                                                                if (strtotime($currentDateTime) > strtotime($dateTime) && $q2['appoinment_status'] == 'Accept') {
-                                                                    // Tampilkan tombol "Chat"
-                                                                ?>
-                                                                    <td class="text-right">
-                                                                        <div class="table-action">
-                                                                            <a href="chat.php?user_id=<?= $q2['unique_id']; ?>" class="btn btn-sm bg-primary-light">
-                                                                                <i class="fa fa-paper-plane"></i> Chat
-                                                                            </a>
+
+
+
+                                                                    </div>
+                                                                    <div class="form-group col-md-12 mb-5">
+                                                                        <input class="form-control mb-2" id="inputDate" name="tgl" value="<?= $q2['nama'] ?>" disabled />
+                                                                        <input class="form-control" id="inputDate" name="tgl" value=" <?= $q2['bidang'] ?>" disabled />
+                                                                        <!-- <h2 for="text" class="semi-bold" style="margin-bottom: 0;"><?= $q2['nama']; ?>
+                                                                        </h2>
+                                                                        <p><?= $q2['bidang']; ?> <br><br><br></p> -->
+
+                                                                    </div>
+
+
+                                                                    <!-- Start Input Date -->
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="inputDate" class="semi-bold">Tanggal lama</label>
+                                                                        <input type="date" class="form-control" id="inputDate" name="tgl" value="<?= $q2['hari'] ?>" disabled />
+
+                                                                    </div>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="inputDate" class="semi-bold">Tanggal Baru</label>
+                                                                        <input type="date" class="form-control" id="inputTanggalBaru" name="tgl" value="<?= $q2['hari'] ?>" required />
+                                                                        <input type="text" class="form-control" name="id" value="<?= $q2['id_appoinment'] ?>" hidden />
+                                                                    </div>
+
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="inputTime" class="semi-bold">Jam lama</label>
+                                                                        <div class="input-group date" id="timePicker">
+                                                                            <input type="time" class="form-control timePicker" name="jam" value="<?= $q2['jam'] ?>" disabled>
+                                                                            <span class="input-group-addon"></span>
                                                                         </div>
-                                                                    </td>
-                                                                <?php } else { ?>
-                                                                    <td></td>
-                                                                <?php } ?>
+                                                                    </div>
 
-                                                            </tr>
-                                                        <?php endforeach; ?>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="inputTime" class="semi-bold">Jam Baru</label>
+                                                                        <div class="input-group date">
+                                                                            <input type="time" class="form-control" id="inputJamBaru" name="jam" value="<?= $q2['jam'] ?>">
+                                                                            <span class="input-group-addon"></span>
+                                                                        </div>
 
-                                                    </tbody>
-                                                </table>
+
+                                                                    </div>
+                                                                    <div class="form-group col-md-12 p-0 m-0">
+
+                                                                        <small style="display:flex; justify-content:right; color: red;">Masukkan sesuai jam kerja 08:00 - 18:00 WIB</small>
+                                                                    </div>
+
+                                                                    <!-- End Input Date -->
+                                                                </div>
+
+                                                                <!-- <div class="mb-2">
+                                                    <label for="hariPertemuan" class="form-label">Rencana hari
+                                                        pertemuan</l9abel>
+                                                    <input type="text" class="form-control py-2" name="tgl" placeholder="yyyy-mm-dd">
+                                                    <label for="noHp" class="form-label">Rencana jam pertemuan</label>
+                                                    <input type="text" class="form-control py-2 " name="jam" placeholder="mm-dd">
+                                                </div> -->
+                                                                <label for="noHp" class="form-label semi-bold">Jenis Perpajakan</label>
+                                                                <select class="form-control mr-1" id="inputStartTimeHour" name="bidang" required>
+                                                                    <option value="<?= $q2['jenis_pajak']; ?>" selected><?= $q2['jenis_pajak']; ?></option>
+                                                                    <option value="PPh Badan">PPh Badan</option>
+                                                                    <option value="PPh Pasal 21">PPh Pasal 21</option>
+                                                                    <option value="PPh Pasal 25">PPh Pasal 25</option>
+                                                                    <option value="PPh Pasal 22 dan 23">PPh Pasal 22 dan 23</option>
+                                                                    <option value="PPh Tahunan Orang Pribadi">PPh Tahunan Orang Pribadi</option>
+
+                                                                </select>
+                                                                <small class="form-text left text-muted pb-0 mb-0">Pilih jenis pajak yang ingin anda konsultasikan.</small>
+
+                                                                <label for="noHp" class="form-label semi-bold">Media</label>
+                                                                <select class="form-control mr-1" id="inputStartTimeHour" name="media" required>
+                                                                    <option value="<?= $q2['media']; ?>" selected><?= $q2['media']; ?></option>
+                                                                    <option value="Live Chat">Live Chat</option>
+                                                                    <option value="Zoom" style="color: gray" disabled>Zoom (Segera)</option>
+
+
+
+                                                                </select>
+
+                                                                <div class="form-group mt-5 mb-3 d-flex justify-content-center align-item-center">
+                                                                    <!-- <button type="submit"
+                                            class="form-control btn btn-primary rounded submit px-3 py-2 fw-bold">Buat
+                                            Janji Temu Online</button> -->
+                                                                    <button type="button" class="btn btn-warning btn-md  rounded submit bold" style="width: 30%;" onclick="showConfirmation()">Reschedule</button><br>
+
+                                                                </div>
+                                                                <div class="form-group d-flex justify-content-center align-item-center">
+                                                                    <!-- <button type="submit"
+                                            class="form-control btn btn-primary rounded submit px-3 py-2 fw-bold">Buat
+                                            Janji Temu Online</button> -->
+
+
+                                                                </div>
+
+                                                        </form>
+                                                        <!-- forms END -->
+
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- RESHCEDULE -->
                                 </div>
                                 <!-- /Appointment Tab -->
 
@@ -309,7 +351,6 @@ $q2 = mysqli_fetch_assoc($query);
     <!-- Button trigger modal -->
 
     <!-- Modal -->
-
 
 
 
@@ -410,9 +451,12 @@ $q2 = mysqli_fetch_assoc($query);
 
 
 
-        function showConfirmationCancel(appointmentNumber) {
+
+        //fungsi untuk mengkonfirmasi cancel
+
+        function showConfirmationCancel() {
             Swal.fire({
-                title: 'Apakah Anda yakin ingin membatalkan Appointment?',
+                title: 'Apakah Anda yakin ingin membatalkan?',
                 text: "Tindakan ini tidak dapat dibatalkan!",
                 icon: 'warning',
                 showCancelButton: true,
@@ -424,13 +468,10 @@ $q2 = mysqli_fetch_assoc($query);
                 if (result.isConfirmed) {
                     // Aksi yang diambil jika tombol "Ya, batalkan!" diklik
                     // Mengarahkan pengguna ke halaman appointment-cancel.php
-                    window.location.href = '../controller/appointment-cancel.php?appointment_number=' + appointmentNumber;
+                    window.location.href = 'appointment-cancel.php';
                 }
             });
         }
-
-
-
 
         // Fungsi untuk menampilkan konfirmasi SweetAlert2
 

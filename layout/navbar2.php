@@ -186,7 +186,8 @@
         </div>
         <div class="menu-toggle"></div>
         <ul class="menu">
-            <li><a href="../user/account.php"><ion-icon name="person-outline"></ion-icon></a>Account</li>
+            <li><a href="./user/account.php"><ion-icon name="log-out-outline"></ion-icon>Account</a></li>
+            <li><a href="#"><ion-icon name="cog-outline"></ion-icon></a>Account</li>
             <li><a href="#"><ion-icon name="notifications-outline"></ion-icon>Notification</a></li>
             <li><a href="#"><ion-icon name="cog-outline"></ion-icon></ion-icon>Settings</a></li>
             <div class="dropdown-divider"></div>

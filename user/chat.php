@@ -344,12 +344,48 @@ if (!isset($_SESSION['unique_id'])) {
                                                                     </div>
 
                                                                 </div>
+
+                                                            </div>
+                                                            <form action="#" class="typing-area" hidden>
+                                                                <input type="text" class="incoming_id" name="incoming_id" value="<?php echo $user_id; ?>" hidden>
+                                                                <input type="text" name="message" class="input-field" placeholder="Type Message" autocomplete="off">
+                                                                <button><i class="fa fa-paper-plane"></i></button>
+                                                            </form>
+                                                            <?php
+
+                                                            $query = mysqli_query($koneksi, "SELECT *
+                                FROM tb_appoinment WHERE id_users = $id;");
+                                                            $row = mysqli_fetch_assoc($query);
+
+                                                            date_default_timezone_set('Asia/Jakarta');
+                                                            $currentDateTime = date('Y-m-d H:i:s');
+                                                            // echo $currentDateTime;
+                                                            $dateString = $row['hari'] . ' ' . $row['jam']; // Menggabungkan hari dan jam dalam satu string
+                                                            // echo $dateString;
+                                                            $dateTime = date('Y-m-d H:i:s', strtotime($dateString)); // Mengonversi string menjadi format tanggal dan waktu yang diinginkan
+                                                            // echo $dateTime;
+
+                                                            if (strtotime($currentDateTime) > strtotime($dateTime) && $row['appoinment_status'] == 'Accept') {
+                                                                // Tampilkan tombol "Print"
+                                                            ?>
                                                                 <form action="#" class="typing-area">
                                                                     <input type="text" class="incoming_id" name="incoming_id" value="<?php echo $user_id; ?>" hidden>
                                                                     <input type="text" name="message" class="input-field" placeholder="Type Message" autocomplete="off">
                                                                     <button><i class="fa fa-paper-plane"></i></button>
                                                                 </form>
-                                                            </div>
+                                                            <?;
+                                                            } else {
+                                                            ?>
+
+
+
+                                                            <?php
+                                                            }
+                                                            ?>
+
+
+
+
                                                             <div class="chat-footer">
 
                                                             </div>
