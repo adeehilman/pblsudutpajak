@@ -454,15 +454,26 @@ $q = mysqli_fetch_assoc($query);
                                                     <!-- Start Input Date -->
                                                     <div class="form-group col-md-6">
                                                         <label for="inputDate" class="semi-bold">Tanggal</label>
-                                                        <input type="date" class="form-control" id="inputDate" name="tgl" required />
+                                                        <input type="date" class="form-control" id="inputTanggalBaru" name="tgl" required />
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="inputTime" class="semi-bold">Time</label>
-                                                        <div class="input-group date" id="timePicker">
-                                                            <input type="time" class="form-control timePicker" name="jam">
+                                                        <div class="input-group date">
+                                                            <input type="time" class="form-control" id="inputJamBaru" name="jam">
                                                             <span class="input-group-addon"></span>
                                                         </div>
                                                     </div>
+                                                    <div class="form-group col-md-12">
+
+                                                        <small style="display:flex; justify-content:right; color: red;">Masukkan sesuai jam kerja 08:00 - 18:00 WIB</small>
+                                                    </div>
+
+
+
+
+
+
+
 
                                                     <!-- End Input Date -->
                                                 </div>
@@ -519,6 +530,56 @@ $q = mysqli_fetch_assoc($query);
     </div>
 
     <script>
+        // Mendapatkan tanggal lama dan jam lama
+        var tanggalLama = new Date();
+        var jamLama = "14:05";
+
+        // Mendapatkan elemen input tanggal dan waktu baru
+        var tanggalBaruInput = document.getElementById("inputTanggalBaru");
+        var jamBaruInput = document.getElementById("inputJamBaru");
+
+        // Mengatur atribut min pada input tanggal baru
+        tanggalBaruInput.setAttribute("min", formatDate(tanggalLama));
+
+        // Mengatur atribut min pada input waktu baru
+        jamBaruInput.setAttribute("min", jamLama);
+
+        // Fungsi untuk memformat tanggal menjadi format YYYY-MM-DD
+        function formatDate(date) {
+            var year = date.getFullYear();
+            var month = (date.getMonth() + 1).toString().padStart(2, "0");
+            var day = date.getDate().toString().padStart(2, "0");
+            return year + "-" + month + "-" + day;
+        }
+
+        // Mendapatkan elemen input waktu baru
+        var jamBaruInput = document.getElementById("inputJamBaru");
+
+        // Mendapatkan jam kerja kantor (jam 8 pagi hingga 6 sore)
+        var jamKerjaMulai = 8;
+        var jamKerjaSelesai = 18;
+
+        // Menghitung nilai minimum yang valid untuk atribut min
+        var minJam = jamKerjaMulai.toString().padStart(2, "0") + ":00";
+
+        // Mengatur atribut min pada input waktu baru
+        jamBaruInput.setAttribute("min", minJam);
+
+        // Fungsi untuk membatasi input waktu baru sesuai dengan jam kerja
+        function limitJamBaru() {
+            var jamBaru = jamBaruInput.value;
+            var jamBaruParsed = parseInt(jamBaru.split(":")[0]);
+
+            if (jamBaruParsed < jamKerjaMulai || jamBaruParsed >= jamKerjaSelesai) {
+                // Jam baru berada di luar jam kerja, set nilai input waktu baru ke jam kerja mulai
+                jamBaruInput.value = "";
+            }
+        }
+
+        // Menambahkan event listener untuk membatasi input waktu baru saat nilainya berubah
+        jamBaruInput.addEventListener("input", limitJamBaru);
+
+
         var today = new Date();
         var minDate = today.setDate(today.getDate() + 1);
 
