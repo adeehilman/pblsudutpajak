@@ -85,7 +85,7 @@
                                     echo "active";
                                 }
                                 ?>">
-                        <a href="chat-konsultan.php?user_id=<?php ?>">
+                        <a href="chat-konsultan.php<?php ?>">
                             <i class="fas fa-comments"></i>
                             <span>Message</span>
                             <small class="unread-msg">23</small>

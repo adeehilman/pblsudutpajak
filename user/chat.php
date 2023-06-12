@@ -375,12 +375,14 @@ require_once('../controller/session_expired.php');
                                                                     <button><i class="fa fa-paper-plane"></i></button>
                                                                 </form>
                                                             <?;
-                                                            } else {
+                                                            } else if ($row['appoinment_status'] == 'Accept') {
+
                                                             ?>
 
 
 
                                                             <?php
+
                                                             }
                                                             ?>
 
@@ -388,9 +390,49 @@ require_once('../controller/session_expired.php');
 
 
                                                             <div class="chat-footer">
+                                                                <?php
 
+
+                                                                // // Waktu appointment
+                                                                // $appointmentDate = "2023-06-13 01:40:00";
+                                                                // $currentTime = time();
+
+                                                                // // Menghitung selisih waktu antara waktu sekarang dengan waktu appointment
+                                                                // $timeDiff = strtotime($appointmentDate) - $currentTime;
+
+                                                                // // Menghitung waktu mundur dalam jam, menit, dan detik
+                                                                // $hours = floor($timeDiff / 3600);
+                                                                // $minutes = floor(($timeDiff % 3600) / 60);
+                                                                // $seconds = $timeDiff % 60;
+
+                                                                // // Format waktu mundur dalam "1 jam 15 menit lagi"
+                                                                // $countdownFormat = "";
+                                                                // if ($hours > 0) {
+                                                                //     $countdownFormat .= $hours . " jam ";
+                                                                // }
+                                                                // if ($minutes > 0) {
+                                                                //     $countdownFormat .= $minutes . " menit ";
+                                                                // }
+                                                                // $countdownFormat .= "lagi";
+
+                                                                // // Format waktu dalam "dd:mm:yy" dan "jam:menit:detik"
+                                                                // $appointmentDateTime = new DateTime($appointmentDate);
+                                                                // $appointmentDateFormat = $appointmentDateTime->format("d:m:y");
+                                                                // $appointmentTimeFormat = $appointmentDateTime->format("H:i:s");
+
+
+
+                                                                if (strtotime($currentDateTime) < strtotime($dateTime) && $row['appoinment_status'] == 'Accept') {
+                                                                ?>
+                                                                    <p style="text-align: center; font-weight:bold; color:#09c778">Reservasi Anda telah di terima, Silahkan menunggu hingga waktu yang ditentukan.</p>
+
+
+
+                                                                <?php
+                                                                } ?>
                                                             </div>
                                                         </div>
+
                                                         <!-- /Chat Right -->
                                                     <?php } ?>
                                                 </div>
@@ -452,6 +494,40 @@ require_once('../controller/session_expired.php');
 
 
     <!--  -->
+    <script>
+        // // Waktu appointment
+        // var appointmentDate = new Date("<?php echo $appointmentDate; ?>");
+
+        // // Memperbarui countdown setiap detik
+        // setInterval(updateCountdown, 1000);
+
+        // function updateCountdown() {
+        //     var currentTime = new Date();
+        //     var timeDiff = appointmentDate - currentTime;
+
+        //     // Menghitung waktu mundur dalam jam, menit, dan detik
+        //     var hours = Math.floor(timeDiff / 3600000);
+        //     var minutes = Math.floor((timeDiff % 3600000) / 60000);
+        //     var seconds = Math.floor((timeDiff % 60000) / 1000);
+
+        //     // Format waktu mundur dalam "1 jam 15 menit lagi"
+        //     var countdownFormat = "";
+        //     if (hours > 0) {
+        //         countdownFormat += hours + " jam ";
+        //     }
+        //     if (minutes > 0) {
+        //         countdownFormat += minutes + " menit ";
+        //     }
+        //     countdownFormat += seconds + " detik lagi";
+
+        //     // Menampilkan waktu mundur
+        //     document.getElementById("countdown").innerHTML = countdownFormat;
+        // }
+    </script>
+
+
+
+
     <!-- Chat Javascript -->
 
     <script src="../js/chat.js"></script>

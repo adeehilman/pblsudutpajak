@@ -35,7 +35,7 @@ if (isset($_SESSION['unique_id'])) {
             }
         }
     } else {
-        $output .= '<div class="text">No messages are available. Once you send message they will appear here.</div>';
+        $output .= '<div class="text">Anda belum pernah berkonsultasi sebelumnya.</div>';
     }
     echo $output;
 } else {

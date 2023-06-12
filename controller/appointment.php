@@ -20,6 +20,6 @@ mysqli_query($koneksi, "INSERT INTO tb_appoinment (id_appoinment, id_konsultans,
 VALUES (NULL, '$id_kon', '$id_user', '$xx', '$topik', '$tgl', '$time', '$bidang', '$media', 'Booked', '$unique_id', '$unique_id_k')");
 
 $q2 = mysqli_query($koneksi, "INSERT INTO `tb_chat`(`msg_id`, `incoming_msg_id`, `outgoing_msg_id`, `msg`, `created_at`) VALUES   
- (NULL, '', '$unique_id_k', '$unique_id', NOW())");
+ (NULL ,'$unique_id', '$unique_id_k', 'Halo! Terima kasih telah menghubungi kami. Anda telah melakukan reservasi untuk sesi konsultasi. Silakan bersabar sejenak, kami akan segera menyambungkan Anda dengan konsultan kami begitu waktu reservasi tiba. Terima kasih atas kesabaran dan pengertian Anda.' , NOW())");
 
 header('location: ../user/appointment_user.php');

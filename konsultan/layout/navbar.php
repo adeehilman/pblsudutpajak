@@ -89,35 +89,7 @@
                 </div>
 
             </li>
-            <?php if ($_SESSION['id_konsultan'] == true) {
-            ?> <li class="nav-item dropdown has-arrow logged-item">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <span class="user-img">
-                            <img class="rounded-circle" src="assets/img/konsultan/<?= $_SESSION['profil_pic']; ?>" width="31" alt="">
-                        </span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <div class="user-header">
-                            <div class="avatar avatar-sm">
-                                <img src="assets/img/konsultan/<?= $_SESSION['profil_pic']; ?>" alt="User Image" class="avatar-img rounded-circle">
-                            </div>
-                            <div class="user-text">
-                                <h6><?= $_SESSION['nama']; ?></h6>
-                                <p class="text-muted mb-0"><?= $_SESSION['bidang']; ?></p>
-                            </div>
-                        </div>
-                        <a class="dropdown-item" href="doctor-dashboard.html">Dashboard</a>
-                        <a class="dropdown-item" href="doctor-profile-settings.html">Profile Settings</a>
-                        <a class="dropdown-item" href="index.php">Logout</a>
-                    </div>
-                </li><?php
-                    } else {
-                        ?> <li>
-                <li class="nav-item">
-                    <a class="nav-link header-login" href="login.html">login / Signup </a>
-                </li>
-                </li><?php
-                    } ?>
+
 
 
 

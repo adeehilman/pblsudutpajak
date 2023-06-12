@@ -11,13 +11,13 @@ include('conf/config.php');
 
 
 
-$id = $_SESSION['id_konsultan'];
-$query = mysqli_query($koneksi, "SELECT * FROM tb_appoinment INNER JOIN tb_konsultan ON tb_appoinment.id_konsultans = tb_konsultan.id_konsultan INNER JOIN tb_users ON tb_appoinment.id_users = tb_users.id_users WHERE id_konsultan = '$id'");
+// $id = $_SESSION['id_konsultan'];
+// $query = mysqli_query($koneksi, "SELECT * FROM tb_appoinment INNER JOIN tb_konsultan ON tb_appoinment.id_konsultans = tb_konsultan.id_konsultan INNER JOIN tb_users ON tb_appoinment.id_users = tb_users.id_users WHERE id_konsultan = '$id'");
 
 
-// untuk mengambil nama user di kolom chat
-$sql = mysqli_query($koneksi, "SELECT * FROM tb_users");
-$id_user = mysqli_fetch_assoc($sql);
+// // untuk mengambil nama user di kolom chat
+// $sql = mysqli_query($koneksi, "SELECT * FROM tb_users");
+// $id_user = mysqli_fetch_assoc($sql);
 
 
 ?>
@@ -71,27 +71,27 @@ $id_user = mysqli_fetch_assoc($sql);
                                         <?php
                                         $user_id = mysqli_real_escape_string($koneksi, $_GET['user_id']);
 
-                                        $sql = mysqli_query($koneksi, "SELECT tb_konsultan.nama as konsultan_nama, tb_users.nama as user_nama , tb_konsultan.profil_pic, tb_konsultan.status
-                                                            FROM tb_konsultan 
-                                                            LEFT JOIN tb_users ON tb_users.unique_id = tb_konsultan.unique_id 
-                                                            WHERE tb_konsultan.unique_id = {$user_id} OR tb_users.unique_id = {$user_id}
+                                        $sql = mysqli_query($koneksi, "SELECT tb_konsultan.nama as konsultan_nama, tb_users.nama as user_nama, tb_users.foto_profil, tb_users.status 
+                                        FROM tb_users
+                                        LEFT JOIN tb_konsultan ON tb_users.unique_id = tb_konsultan.unique_id
+                                        WHERE tb_users.unique_id = {$user_id}
                                                             
                                                             
                                                             ");
                                         if (mysqli_num_rows($sql) > 0) {
                                             $row = mysqli_fetch_assoc($sql);
                                         } else {
-                                            header("location: users.php");
+                                            echo "GAGAL";
                                         }
                                         ?>
                                         <div class="media">
                                             <div class="media-img-wrap">
                                                 <div class="avatar avatar-online">
-                                                    <img src="../img/konsultan_profil/<?= $row['profil_pic'] ?>" alt="User Image" class="avatar-img rounded-circle">
+                                                    <img src="../img/users_profil/<?= $row['foto_profil'] ?>" alt="User Image" class="avatar-img rounded-circle">
                                                 </div>
                                             </div>
                                             <div class="media-body">
-                                                <div class="user-name"><?= $row['konsultan_nama']; ?></div>
+                                                <div class="user-name"><?= $row['user_nama']; ?></div>
                                                 <div class="user-status"><?= $row['status']; ?></div>
                                             </div>
                                         </div>
