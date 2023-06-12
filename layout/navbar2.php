@@ -187,10 +187,8 @@
         <div class="menu-toggle"></div>
         <ul class="menu">
             <li><a href="./user/account.php"><ion-icon name="log-out-outline"></ion-icon>Account</a></li>
-            <li><a href="#"><ion-icon name="cog-outline"></ion-icon></a>Account</li>
             <li><a href="#"><ion-icon name="notifications-outline"></ion-icon>Notification</a></li>
             <li><a href="#"><ion-icon name="cog-outline"></ion-icon></ion-icon>Settings</a></li>
-            <div class="dropdown-divider"></div>
             <li><a href="./controller/logout.php"><ion-icon name="log-out-outline"></ion-icon>Logout</a></li>
         </ul>
     </div>

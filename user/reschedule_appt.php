@@ -5,13 +5,14 @@
 session_start();
 include '../conf/config.php';
 if (!isset($_SESSION['unique_id'])) {
-    header("location: ../layout/modalLogin.php ");
+    header("location: ../login.php?error=session_expired ");
 }
 $id = $_SESSION['id'];
 $id_2 = $_GET['id_reschedule'];
 $query = mysqli_query($koneksi, "SELECT * FROM tb_appoinment AS a INNER JOIN tb_users AS u ON a.id_users = u.id_users INNER JOIN tb_konsultan AS k ON a.id_konsultans = k.id_konsultan WHERE a.id_appoinment = '$id_2'");
 $q2 = mysqli_fetch_assoc($query);
 
+require_once('../controller/session_expired.php');
 ?>
 
 

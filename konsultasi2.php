@@ -1,3 +1,54 @@
+<?php
+
+session_start();
+
+
+include('conf/config.php');
+if (!isset($_SESSION['unique_id'])) {
+    header("location: ../login.php?error=session_expired ");
+}
+
+require_once('controller/session_expired.php');
+$query = mysqli_query($koneksi, "SELECT * FROM `tb_konsultan`");
+
+
+// if (isset($_GET['bidang'])) {
+//     $nomor = $_GET['bidang'];
+
+//     $bidang = '';
+
+//     switch ($nomor) {
+//         case 1:
+//             $bidang = 'PPh Badan';
+//             break;
+//         case 2:
+//             $bidang = 'PPh Tahunan Pribadi';
+//             break;
+//         case 3:
+//             $bidang = 'PPh Pasal 21';
+//             break;
+//         case 4:
+//             $bidang = 'PPh Pasal 22 dan 23';
+//             break;
+//         case 5:
+//             $bidang = 'PPh Pasal 25';
+//             break;
+
+//             // tambahkan case untuk bidang lainnya jika diperlukan
+//         default:
+//             $bidang = 'Bidang Lainnya';
+//             break;
+//     }
+
+//     // Menggunakan $bidang yang telah diinisialisasi untuk query atau aksi lainnya
+
+// }
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,42 +89,86 @@
     <link rel="stylesheet" type="text/css" href="css/responsive.css">
 </head>
 <style>
-#rs-header .menu-sticky {
-    background-color: #ffff;
-    position: fixed;
-    z-index: 999;
-    margin: 0 auto;
-    padding: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
-}
+    #rs-header .menu-sticky {
+        background-color: #ffff;
+        position: fixed;
+        z-index: 999;
+        margin: 0 auto;
+        padding: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    }
 </style>
 
 <body>
-    <!-- navbar -->
-    <?php include './layout/navbar.php'; ?>
+    <!-- ======= Edit Section ======= -->
+    <?php include './layout/navbar2.php'; ?>
     <!-- end navbar -->
     <!-- konsultasi -->
+    <style>
+        .carousel .carousel-indicators li {
+            background-color: #7e9fbb;
+
+        }
+
+        .carousel .carousel-indicators li.active {
+            background-color:
+                #01a0f9;
+
+        }
+    </style>
     <section>
-        <div class="container mt-5 mb-3 pt-5">
+        <div class="container mt-0 pt-0">
             <div class="row border-bottom ">
                 <div class="tutorialChatIlustration col-12 col-sm-5  p-3 border-end ">
                     <div class="row text-center justify-content-center my-5">
 
                         <div class="col-9">
                             <h5 class="fs-6 fw-bold">Chat Spesialis Pajak</h5>
-                            <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ac dictum.</p>
-                            <img src="img/ilustrasiChat1.png" alt="chatIustrasi1">
-                            <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ac dictum.</p>
-                            <div class="navigator">
-                                <img src="img/dotBold.png" alt="dotBold">
-                                <img src="img/dotLight.png" alt="dotBold">
-                                <img src="img/dotLight.png" alt="dotBold">
+                            <p class="mt-3">Layanan Para Ahli yang siap untuk membantu kamu.</p>
+                            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators ">
+                                    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+                                    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="images/Konsultasi1.png" class="d-block w-80" alt="...">
+                                        <div class="carousel-caption d-none">
+                                            <h5>Second slide label</h5>
+
+                                        </div>
+                                        <p class="pb-20 font-weight-bold">Some representative placeholder content for the second slide.</p>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="images/Pajak.png" class="d-block w-80" alt="...">
+                                        <div class="carousel-caption d-none">
+
+
+                                        </div>
+                                        <p class="pb-20 font-weight-bold">Some representative placeholder content for the second slide.</p>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="images/Konsultasi1.png" class="d-block w-80" alt="...">
+                                        <p class="pb-20 font-weight-bold">Some representative placeholder content for the second slide.</p>
+                                    </div>
+
+                                </div>
+                                <!-- <button class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-target="#carouselExampleCaptions" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </button> -->
                             </div>
+
                         </div>
 
                     </div>
@@ -83,22 +178,20 @@
                             <h5 class="fs-6 fw-bold">Mengapa Chat Spesialis disini?</h5>
                             <div class="row mt-4 mb-auto">
                                 <div class="col mengapaChatSpesialis">
-                                    <img src="img/iconMengapaChatSpesialis.png" alt="" class="float-left mr-2">
-                                    <p class="fw-light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor
-                                        facilisi in</p>
+                                    <img src="images/Layanan 1.png" width="50" alt="" class="float-left mr-2">
+                                    <p class="fw-light">Satu aplikasi untuk berbagai kebutuhan, pajak hingga konsultasi</p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col mengapaChatSpesialis">
-                                    <img src="img/iconMengapaChatSpesialis.png" alt="" class="float-left mr-2">
+                                    <img src="images/Layanan 2.png" width="50" alt="" class=" float-left mr-2">
                                     <p class="fw-light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col mengapaChatSpesialis">
-                                    <img src="img/iconMengapaChatSpesialis.png" alt="" class="float-left mr-2">
-                                    <p class="fw-light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor
-                                        facilisi in quis amet </p>
+                                    <img src="images/Layanan 3.png" width="50px " alt="" class=" float-left mr-2">
+                                    <p class="fw-light">Dapat diintegrasikan dengan asuransimu agar kebutuhan pajak online terjamin </p>
                                 </div>
                             </div>
                         </div>
@@ -106,342 +199,106 @@
                     </div>
                 </div>
 
-                <div class=" spesialis-chooser col-12 col-sm-7  px-5 mt-5 mb-5">
+                <?php include 'layout/konsultan_list.php'; ?>
 
-                    <!-- head back button -->
-                    <div class="row mb-3 border-bottom">
-
-                        <div class="col p-0 ">
-                            <div class="">
-                                <!-- <button type="button" class="btn btn-light"><span><i
-                    class="bi bi-chevron-left"></i></span> kembali</button> -->
-                                <a class="btn btn-light" href="konsultasi.php" role="button"><span><i
-                                            class="bi bi-chevron-left"></i></span>kembali</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- head back button -->
-
-                    <!-- catalog spesialis -->
-                    <div class="row panel-pakar">
-                        <div class="col-12 col-sm-6 mb-3 mb-sm-4">
-                            <div class="row">
-                                <div class="col-4 ps-0 p-0 m-0">
-                                    <img src="img/pakarSatu95x95.png" alt="chatIustrasi1"
-                                        class="m-0 p-0 rounded mx-auto d-block" style="width: 115px; height: 115px;">
-                                </div>
-                                <div class="col-8 px-2 px-sm-3">
-                                    <h5 class="fs-5 mb-0">Usman Akbar</h5>
-                                    <p class="mb-0">PPh pasal 21</p>
-                                    <button type=" button" class="btn btn-light experienceBtn  mb-0 p-1">5
-                                        tahun</button>
-                                    <br>
-                                    <!-- <button class="btn btn-primary chatNow" type="button">Chat sekarang</button> -->
-                                    <a class="btn btn-primary chatNow" href="konsultasi_previewConsultant.php"
-                                        role="button">Chat
-                                        Sekarang</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 mb-3 mb-sm-4">
-                            <div class="row">
-                                <div class="col-4 ps-0 p-0 m-0">
-                                    <img src="img/pakarDua95x95.png" alt="chatIustrasi1"
-                                        class="m-0 p-0 rounded mx-auto d-block" style="width: 115px; height: 115px;">
-                                </div>
-                                <div class="col-8 px-2 px-sm-3">
-                                    <h5 class="fs-5 mb-0">Jhon doe</h5>
-                                    <p class="mb-0">PPh pasal 25</p>
-                                    <button type=" button" class="btn btn-light experienceBtn  mb-0 p-1">5
-                                        tahun</button>
-                                    <br>
-                                    <!-- <button class="btn btn-primary chatNow" type="button">Chat sekarang</button> -->
-                                    <a class="btn btn-primary chatNow" href="konsultasi_previewConsultant_offline.php"
-                                        role="button">Chat
-                                        Sekarang</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 mb-3 mb-sm-4">
-                            <div class="row">
-                                <div class="col-4 ps-0 p-0 m-0">
-                                    <img src="img/pakarTiga110x110.png" alt="chatIustrasi1"
-                                        class="m-0 p-0 rounded mx-auto d-block" style="width: 115px; height: 115px;">
-                                </div>
-                                <div class="col-8 px-2 px-sm-3">
-                                    <h5 class="fs-5 mb-0">Sri Sekar Ayu</h5>
-                                    <p class="mb-0">PPh badan</p>
-                                    <button type=" button" class="btn btn-light experienceBtn  mb-0 p-1">4
-                                        tahun</button>
-                                    <br>
-                                    <!-- <button class="btn btn-primary chatNow" type="button">Chat sekarang</button> -->
-                                    <a class="btn btn-primary chatNow" href="#" role="button">Chat
-                                        Sekarang</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 mb-3 mb-sm-4">
-                            <div class="row">
-                                <div class="col-4 ps-0 p-0 m-0">
-                                    <img src="img/pakarEmpat110x110.png" alt="chatIustrasi1"
-                                        class="m-0 p-0 rounded mx-auto d-block" style="width: 115px; height: 115px;">
-                                </div>
-                                <div class="col-8 px-2 px-sm-3">
-                                    <h5 class="fs-5 mb-0">Alghani</h5>
-                                    <p class="mb-0">PPh pasal 25</p>
-                                    <button type="button" class="btn btn-light experienceBtn  mb-0 p-1">5
-                                        tahun</button>
-                                    <br>
-                                    <!-- <button class="btn btn-primary chatNow" type="button">Chat sekarang</button> -->
-                                    <a class="btn btn-primary chatNow" href="#" role="button">Chat
-                                        Sekarang</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-6 mb-3 mb-sm-4">
-                            <div class="row">
-                                <div class="col-4 ps-0 p-0 m-0">
-                                    <img src="img/pakarLima110x110.png" alt="chatIustrasi1"
-                                        class="m-0 p-0 rounded mx-auto d-block" style="width: 115px; height: 115px;">
-                                </div>
-                                <div class="col-8 px-2 px-sm-3">
-                                    <h5 class="fs-5 mb-0">Linda</h5>
-                                    <p class="mb-0">PPh pasal 21 dan 23</p>
-                                    <button type="button" class="btn btn-light experienceBtn  mb-0 p-1">3
-                                        tahun</button>
-                                    <br>
-                                    <!-- <button class="btn btn-primary chatNow" type="button">Chat sekarang</button> -->
-                                    <a class="btn btn-primary chatNow" href="#" role="button">Chat
-                                        Sekarang</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 mb-3 mb-sm-4">
-                            <div class="row">
-                                <div class="col-4 ps-0 p-0 m-0">
-                                    <img src="img/pakarEnam110x110.png" alt="chatIustrasi1"
-                                        class="m-0 p-0 rounded mx-auto d-block" style="width: 115px; height: 115px;">
-                                </div>
-                                <div class="col-8 px-2 px-sm-3">
-                                    <h5 class="fs-5 mb-0">Dila</h5>
-                                    <p class="mb-0">PPh tahunan Pribadi</p>
-                                    <button type="button" class="btn btn-light experienceBtn  mb-0 p-1">5
-                                        tahun</button>
-                                    <br>
-                                    <!-- <button class="btn btn-primary chatNow" type="button">Chat sekarang</button> -->
-                                    <a class="btn btn-primary chatNow" href="#" role="button">Chat
-                                        Sekarang</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 mb-3 mb-sm-4">
-                            <div class="row">
-                                <div class="col-4 ps-0 p-0 m-0">
-                                    <img src="img/pakarTujuh110x110.png" alt="chatIustrasi1"
-                                        class="m-0 p-0 rounded mx-auto d-block" style="width: 115px; height: 115px;">
-                                </div>
-                                <div class="col-8 px-2 px-sm-3">
-                                    <h5 class="fs-5 mb-0">Dini Putri</h5>
-                                    <p class="mb-0">PPh pasal 21</p>
-                                    <button type="button" class="btn btn-light experienceBtn  mb-0 p-1">3
-                                        tahun</button>
-                                    <br>
-                                    <!-- <button class="btn btn-primary chatNow" type="button">Chat sekarang</button> -->
-                                    <a class="btn btn-primary chatNow" href="#" role="button">Chat
-                                        Sekarang</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 mb-3 mb-sm-4">
-                            <div class="row">
-                                <div class="col-4 ps-0 p-0 m-0">
-                                    <img src="img/pakarDelapan110x110.png" alt="chatIustrasi1"
-                                        class="m-0 p-0 rounded mx-auto d-block" style="width: 115px; height: 115px;">
-                                </div>
-                                <div class="col-8 px-2 px-sm-3">
-                                    <h5 class="fs-5 mb-0">Dina Ayuni</h5>
-                                    <p class="mb-0">PPh pasal 25</p>
-                                    <button type="button" class="btn btn-light experienceBtn  mb-0 p-1">5
-                                        tahun</button>
-                                    <br>
-                                    <!-- <button class="btn btn-primary chatNow" type="button">Chat sekarang</button> -->
-                                    <a class="btn btn-primary chatNow" href="#" role="button">Chat
-                                        Sekarang</a>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-
-
-
-
-
-
-                        <!-- catalog spesialis -->
-
-
-
-
-
-                    </div>
-
-                </div>
             </div>
+        </div>
     </section>
     <!-- END konsultasi -->
     <br><br><br>
+    <div class="gray-bg">
 
-    <!-- Konsultasi Start-->
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 order-last md-mb-40">
-                <div class="image-wrap animate2">
-                    <img class="wow slideInright" src="images/Konsultasi1.PNG" alt="">
+        <!-- Konsultasi Start-->
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 order-last ">
+                    <div class="image-wrap animate2">
+                        <img class="wow slideInright" src="images/Konsultasi1.png" alt="">
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="sec-title mb-36">
-                    <h6 class="title bg-left">Mengapa Pilih Tanya Spesialis disini?</h6>
-                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hac sapien sed
-                        etiam amet neque maecenas
-                        laoreet. Non nec vel enim consequat vitae aliquam ut. Congue ultrices non venenatis massa. Lacus
-                        elementum ut tellus ullamcorper non, facilisis vitae. Aliquet morbi sed vel phasellus semper
-                        aliquet tellus</p>
+                <div class="col-lg-6">
+                    <div class="sec-title">
+                        <h6 class="title bg-left">Mengapa Pilih Tanya Spesialis disini?</h6>
+                        <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hac sapien sed
+                            etiam amet neque maecenas
+                            laoreet. Non nec vel enim consequat vitae aliquam ut. Congue ultrices non venenatis massa. Lacus
+                            elementum ut tellus ullamcorper non, facilisis vitae. Aliquet morbi sed vel phasellus semper
+                            aliquet tellus</p>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- Konsultasi End-->
+        <br><br><br>
+        <!-- Konsultasi Start-->
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <div class="sec-title mb-36">
+                        <h2 class="title bg-left">Mengapa Pilih Tanya Spesialis disini?</h2>
+                        <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hac sapien sed
+                            etiam amet neque maecenas
+                            laoreet. Non nec vel enim consequat vitae aliquam ut. Congue ultrices non venenatis massa. Lacus
+                            elementum ut tellus ullamcorper non, facilisis vitae. Aliquet morbi sed vel phasellus semper
+                            aliquet tellus. Hac purus risus ultricies vulputate. Convallis morbi suscipit velit eget
+                            imperdiet sed.
+                            Rutrum id amet fermentum quam vel leo. Viverra nisl in eu leo cursus id eget integer. Mattis
+                            amet arcu cursus sodales aliquam vitae, elit. Eu id orci et ac tincidunt vitae nulla. Ut
+                            malesuada malesuada pulvinar leo pulvinar laoreet. Vitae malesuada lorem turpis commodo dui.
+                            Porta vulputate in nam purus ornare. Odio ut aenean praesent laoreet ullamcorper. Senec</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Konsultasi End-->
+        <!-- Konsultasi Start-->
+        <br><br><br>
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-12">
+                    <div class="sec-title mb-36">
+                        <h2 class="title bg-left ">Cara Menghubungi Spesialis Secara Online?</h2>
+                        <p class=" text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hac sapien
+                            sedetiam ametneque maecenas laoreet. Non nec vel enim consequat vitae aliquam ut. Congue
+                            ultrices nonvenenatis massa. Lacus elementum ut tellus ullamcorper nonNon nec vel enim consequat
+                            vitae aliquam ut. Congueultrices nonvenenatis massa. Lacus elementum ut tellus ullamcorper
+                            non,,<span>
+                                <ol>
+                                    <li>vel leo. Viverra nisl in eu leo cursus id eget integer. Mattis amet arcu cursus
+                                        sodales aliquam vitae, </li>
+                                    <li>pulvinar leo pulvinar laoreet. Vitae malesuada lorem turpis commodo dui </li>
+                                    <li>Lacus elementum ut tellus ullamcorper non, facilisis vitae. Aliquet morbi sed vel
+                                        phasellus semper aliquet tellus </li>
+                                </ol>
+                            </span>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hac sapien sed etiam amet neque
+                            maecenas laoreet.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Konsultasi End-->
+
+        <br><br><br><br><br>
     </div>
-    <!-- Konsultasi End-->
-    <br><br><br>
-    <!-- Konsultasi Start-->
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-12">
-                <div class="sec-title mb-36">
-                    <h2 class="title bg-left">Mengapa Pilih Tanya Spesialis disini?</h2>
-                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hac sapien sed
-                        etiam amet neque maecenas
-                        laoreet. Non nec vel enim consequat vitae aliquam ut. Congue ultrices non venenatis massa. Lacus
-                        elementum ut tellus ullamcorper non, facilisis vitae. Aliquet morbi sed vel phasellus semper
-                        aliquet tellus. Hac purus risus ultricies vulputate. Convallis morbi suscipit velit eget
-                        imperdiet sed.
-                        Rutrum id amet fermentum quam vel leo. Viverra nisl in eu leo cursus id eget integer. Mattis
-                        amet arcu cursus sodales aliquam vitae, elit. Eu id orci et ac tincidunt vitae nulla. Ut
-                        malesuada malesuada pulvinar leo pulvinar laoreet. Vitae malesuada lorem turpis commodo dui.
-                        Porta vulputate in nam purus ornare. Odio ut aenean praesent laoreet ullamcorper. Senec</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Konsultasi End-->
-    <!-- Konsultasi Start-->
-    <br><br><br>
-    <div class="container">
-        <div class="row align-items-center">
-
-            <div class="col-lg-12">
-                <div class="sec-title mb-36">
-                    <h2 class="title bg-left ">Cara Menghubungi Spesialis Secara Online?</h2>
-                    <p class=" text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hac sapien
-                        sedetiam ametneque maecenas laoreet. Non nec vel enim consequat vitae aliquam ut. Congue
-                        ultrices nonvenenatis massa. Lacus elementum ut tellus ullamcorper nonNon nec vel enim consequat
-                        vitae aliquam ut. Congueultrices nonvenenatis massa. Lacus elementum ut tellus ullamcorper
-                        non,,<span>
-                            <ol>
-                                <li>vel leo. Viverra nisl in eu leo cursus id eget integer. Mattis amet arcu cursus
-                                    sodales aliquam vitae, </li>
-                                <li>pulvinar leo pulvinar laoreet. Vitae malesuada lorem turpis commodo dui </li>
-                                <li>Lacus elementum ut tellus ullamcorper non, facilisis vitae. Aliquet morbi sed vel
-                                    phasellus semper aliquet tellus </li>
-                            </ol>
-                        </span>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hac sapien sed etiam amet neque
-                        maecenas laoreet.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Konsultasi End-->
-
-    <br><br><br><br><br>
 
 
-    <!-- <div class="container-lg">
-        <div class="row justify-content-center">
-            <div class="col-12 paragrafSpace">
-                <h4 class="fs-5 fw-bold">
-                    Mengapa Chat Spesialis disini?
-                </h4>
-                <p class="fs-7 text-break">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hac sapien sed
-                    etiam amet neque maecenaslaoreet. Non nec vel enim consequat vitae aliquam ut. Congue ultrices
-                    non venenatis
-                    massa. Lacuselementum ut tellus ullamcorper non, facilisis vitae. Aliquet morbi sed vel
-                    phasellus semperaliquet tellus. Hac purus risus ultricies vulputate. Convallis morbi suscipit
-                    velit egetimperdiet sed.
-                    Rutrum id amet fermentum quam vel leo. Viverra nisl in eu leo cursus id eget integer. Mattis
-                    amet arcu cursus sodales aliquam vitae, elit. Eu id orci et ac tincidunt vitae nulla. Ut
-                    malesuada malesuada pulvinar leo pulvinar laoreet. Vitae malesuada lorem turpis commodo dui.
-                    Porta vulputate in nam purus ornare. Odio ut aenean praesent laoreet ullamcorper. Senectus
-                    ullamcorper turpis et, a eu, dictum tempus. Bibendum porttitor tellus, magna condimentum
-                    porttitor.
-                </p>
-            </div>
-        </div>
-        <div class="row justify-content-center ">
-            <div class="col-12 paragrafSpace">
-                <h4 class="fs-5 fw-bold">
-                    Mengapa Pilih Tanya Spesialis disini?
-                </h4>
-                <p class="fs-7">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hac sapien sed etiam amet
-                    neque maecenas laoreet. Non nec vel enim consequat vitae aliquam ut. Congue ultrices non
-                    venenatis massa. Lacus elementum ut tellus ullamcorper non, facilisis vitae. Aliquet morbi sed
-                    vel phasellus semper aliquet tellus. Hac purus risus ultricies vulputate. Convallis morbi
-                    suscipit velit eget imperdiet sed.
-                    Rutrum id amet fermentum quam vel leo. Viverra nisl in eu leo cursus id eget integer. Mattis
-                    amet arcu cursus sodales aliquam vitae, elit. Eu id orci et ac tincidunt vitae nulla. Ut
-                    malesuada malesuada pulvinar leo pulvinar laoreet. Vitae malesuada lorem turpis commodo dui.
-                    Porta vulputate in nam purus ornare. Odio ut aenean praesent laoreet ullamcorper. Senec
-                </p>
-            </div>
-        </div>
-        <div class="row justify-content-center ">
-            <div class="col-12 paragrafSpace">
-                <h4 class="fs-5 fw-bold">
-                    Mengapa Chat Spesialis disini?
-                </h4>
-                <p class="fs-7">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hac sapien sed etiam amet
-                    neque maecenas laoreet. Non nec vel enim consequat vitae aliquam ut. Congue ultrices non
-                    venenatis massa. Lacus elementum ut tellus ullamcorper non,<span>
-                        <ol>
-                            <li>vel leo. Viverra nisl in eu leo cursus id eget integer. Mattis amet arcu cursus
-                                sodales aliquam vitae, </li>
-                            <li>pulvinar leo pulvinar laoreet. Vitae malesuada lorem turpis commodo dui </li>
-                            <li>Lacus elementum ut tellus ullamcorper non, facilisis vitae. Aliquet morbi sed vel
-                                phasellus semper aliquet tellus </li>
-                        </ol>
-                    </span>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hac sapien sed etiam amet neque
-                    maecenas laoreet.
-                </p>
-            </div>
-        </div>
-    </div> -->
+
+
+
+
+    <!-- The Modal -->
+    <!-- Button trigger modal -->
+
+    <!-- Modal -->
 
 
 
 
     <!-- Footer Start -->
-    <?php include './layout/footer.php' ?>
+    <?php include './layout/footer.php'; ?>
     <!-- Footer End -->
 
 
@@ -474,6 +331,32 @@
     <script src="js/contact.form.js"></script>
     <!-- main js -->
     <script src="js/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script>
+        // File JavaScript (modal.js)
+
+        // Inisialisasi modal
+        $('#myModal').modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: false
+        });
+
+        // Menampilkan modal
+        $('#myModal').on('show.bs.modal', function() {
+            console.log('Modal terbuka');
+        });
+
+        // Menyembunyikan modal
+        $('#myModal').on('hide.bs.modal', function() {
+            console.log('Modal tertutup');
+        });
+    </script>
+
+
 </body>
+<?php include './layout/modalLogin.php'; ?>
 
 </html>

@@ -7,8 +7,9 @@ $id = $_SESSION['id'];
 
 include_once "../conf/config.php";
 if (!isset($_SESSION['unique_id'])) {
-    header("location: login.php");
+    header("location: ../login.php?error=session_expired ");
 }
+require_once('../controller/session_expired.php');
 ?>
 
 

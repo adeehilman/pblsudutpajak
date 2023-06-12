@@ -36,8 +36,8 @@ if ($cek > 0) {
 		header("location: ../konsultasi.php");
 	} else {
 		// Password tidak cocok
-		header("location:../konsultasiGuest.php?error=password");
+		header("location:../login.php?error=password");
 	}
 } else {
-	header("location:../konsultasiGuest.php?error=email");
+	header("location:../login.php?error=email");
 }

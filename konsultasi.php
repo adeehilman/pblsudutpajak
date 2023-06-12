@@ -2,7 +2,13 @@
 
 session_start();
 
+
 include('conf/config.php');
+if (!isset($_SESSION['unique_id'])) {
+    header("location: ../login.php?error=session_expired ");
+}
+
+require_once('controller/session_expired.php');
 $query = mysqli_query($koneksi, "SELECT * FROM `tb_konsultan`");
 ?>
 
@@ -254,7 +260,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM `tb_konsultan`");
                                     <div class="col-sm-12 d-flex align-items-center">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <a class="btn text-start" href="konsultasi2.php" role="button">
+                                                <a class="btn text-start" href="konsultasi2.php?bidang=1" role="button">
                                                     <img src="img/3_badan.png" alt="" class="float-start">
                                                     <h6 class="text-secondary mt-2">PPh badan</h6>
                                                 </a>
@@ -262,7 +268,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM `tb_konsultan`");
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <a class="btn  text-start " href="konsultasi2.php" role="button">
+                                                <a class="btn  text-start " href="konsultasi2.php?bidang=2" role="button">
                                                     <img src="img/1_tahunanPribadi.png" alt="" class="float-start">
                                                     <h6 class="text-secondary mt-2">PPh tahunan <br>orang pribadi</h6>
                                                 </a>
@@ -270,7 +276,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM `tb_konsultan`");
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <a class="btn  text-start" href="konsultasi2.php" role="button">
+                                                <a class="btn  text-start" href="konsultasi2.php?bidang=3" role="button">
                                                     <img src="img/4_pasal21.png" alt="" class="float-start">
                                                     <h6 class="text-secondary mt-2">PPh pasal 21</h6>
                                                 </a>
@@ -278,7 +284,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM `tb_konsultan`");
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <a class="btn ms-2 fs-6 text-start" href="konsultasi2.php" role="button">
+                                                <a class="btn ms-2 fs-6 text-start" href="konsultasi2.php?bidang=4" role="button">
                                                     <img src="img/2_22dan23.png" alt="" class="float-start">
                                                     <h6 class="text-secondary mt-2">PPh pasal 22 dan 23</h6>
                                                 </a>
@@ -286,7 +292,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM `tb_konsultan`");
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <a class="btn ms-2 fs-6 text-start" href="konsultasi2.php" role="button">
+                                                <a class="btn ms-2 fs-6 text-start" href="konsultasi2.php?bidang=5" role="button">
                                                     <img src="img/5_pasal25.png" alt="" class="float-start">
                                                     <h6 class="text-secondary mt-2">PPh pasal 25</h6>
                                                 </a>

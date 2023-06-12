@@ -5,8 +5,9 @@
 session_start();
 include '../conf/config.php';
 if (!isset($_SESSION['unique_id'])) {
-    header("location: ../layout/modalLogin.php ");
+    header("location: ../login.php?error=session_expired ");
 }
+require_once('../controller/session_expired.php');
 $id = $_SESSION['id'];
 
 $query = mysqli_query($koneksi, "SELECT * FROM tb_appoinment AS a INNER JOIN tb_users AS u ON a.id_users = u.id_users INNER JOIN tb_konsultan AS k ON a.id_konsultans = k.id_konsultan WHERE a.id_users = '$id'");

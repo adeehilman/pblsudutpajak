@@ -5,7 +5,10 @@
 session_start();
 $id = $_SESSION['id'];
 
-
+if (!isset($_SESSION['unique_id'])) {
+    header("location: ../login.php?error=session_expired ");
+}
+require_once('../controller/session_expired.php');
 ?>
 
 
@@ -96,7 +99,7 @@ $id = $_SESSION['id'];
                                     </li>
                                     <li>
                                         <a href="appointment_user.php">
-                                            <i class="fas fa-calendar-check"></i>
+                                            <i class="fa fa-calendar"></i>
                                             <span>Appointments</span>
                                         </a>
                                     </li>
@@ -104,11 +107,10 @@ $id = $_SESSION['id'];
                                         <a href="chat.php">
                                             <i class="fa fa-comments"></i>
                                             <span>Chat</span>
-                                            <small class="unread-msg">23</small>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="profile-settings.html">
+                                        <a>
                                             <i class="fa fa-video"></i>
                                             <span>Zoom</span>
                                             <large class="unread-msg" style="background-color: orange;">soon</large>
@@ -123,8 +125,14 @@ $id = $_SESSION['id'];
                                     </li>
                                     <li>
                                         <a href="profile-settings.html">
-                                            <i class="fa fa-user-cog"></i>
+                                            <i class="fa fa-cog"></i>
                                             <span>Profile Settings</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="../controller/logout.php">
+                                            <i class="fa fa-sign-out"></i>
+                                            <span>Logout</span>
                                         </a>
                                     </li>
                                 </ul>
