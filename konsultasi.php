@@ -5,7 +5,7 @@ session_start();
 
 include('conf/config.php');
 if (!isset($_SESSION['unique_id'])) {
-    header("location: ../login.php?error=session_expired ");
+    header("location: ./login.php?error=session_expired ");
 }
 
 require_once('controller/session_expired.php');

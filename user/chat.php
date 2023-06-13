@@ -14,7 +14,10 @@ require_once('../controller/session_expired.php');
 
 
 <head>
+    <script src="../css/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="../css/sweetalert2.min.css">
 
+    <script src="../css/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="../konsultan/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="../konsultan/assets/css/style.css">
     <!-- meta tag -->
@@ -100,7 +103,7 @@ require_once('../controller/session_expired.php');
                                     </li>
                                     <li>
                                         <a href="appointment_user.php">
-                                            <i class="fas fa-calendar-check"></i>
+                                            <i class="fa fa-calendar"></i>
                                             <span>Appointments</span>
                                         </a>
                                     </li>
@@ -126,13 +129,13 @@ require_once('../controller/session_expired.php');
                                     </li>
                                     <li>
                                         <a href="profile-settings.html">
-                                            <i class="fa fa-user-cog"></i>
+                                            <i class="fa fa-cog"></i>
                                             <span>Profile Settings</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="../controller/logout.php">
-                                            <i class="fa fa-logout"></i>
+                                        <a href="#" onclick="confirmLogout()">
+                                            <i class="fa fa-sign-out"></i>
                                             <span>Logout</span>
                                         </a>
                                     </li>
@@ -421,15 +424,17 @@ require_once('../controller/session_expired.php');
                                                                 // $appointmentTimeFormat = $appointmentDateTime->format("H:i:s");
 
 
-
-                                                                if (strtotime($currentDateTime) < strtotime($dateTime) && $row['appoinment_status'] == 'Accept') {
-                                                                ?>
+                                                                if (strtotime($currentDateTime) < strtotime($dateTime)) {
+                                                                ?> <p style="text-align: center; font-weight:bold; color:#09c778">Reservasi Anda telah berhasil dilakukan. Saat ini, reservasi Anda sedang dalam tahap menunggu persetujuan dari konsultan yang bersangkutan.</p><?php
+                                                                                                                                                                                                                                                                                } else  if (strtotime($currentDateTime) < strtotime($dateTime) && $row['appoinment_status'] == 'Accept') {
+                                                                                                                                                                                                                                                                                    ?>
                                                                     <p style="text-align: center; font-weight:bold; color:#09c778">Reservasi Anda telah di terima, Silahkan menunggu hingga waktu yang ditentukan.</p>
 
 
 
                                                                 <?php
-                                                                } ?>
+                                                                                                                                                                                                                                                                                } ?>
+
                                                             </div>
                                                         </div>
 
@@ -526,10 +531,29 @@ require_once('../controller/session_expired.php');
     </script>
 
 
-
+    <script>
+        function confirmLogout() {
+            Swal.fire({
+                title: 'Konfirmasi Logout',
+                text: 'Apakah Anda yakin ingin logout?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Logout',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to logout page
+                    window.location.href = '../controller/logout.php';
+                }
+            });
+        }
+    </script>
 
     <!-- Chat Javascript -->
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../css/sweetalert2.all.min.js"></script>
     <script src="../js/chat.js"></script>
     <!-- Konsultan List -->
     <script src="../js/users.js"></script>

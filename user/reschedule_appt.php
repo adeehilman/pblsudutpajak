@@ -360,6 +360,25 @@ require_once('../controller/session_expired.php');
     <!-- Footer End -->
 
 
+    <script>
+        function confirmLogout() {
+            Swal.fire({
+                title: 'Konfirmasi Logout',
+                text: 'Apakah Anda yakin ingin logout?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Logout',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to logout page
+                    window.location.href = '../controller/logout.php';
+                }
+            });
+        }
+    </script>
 
     <!-- import modal sign up -->
 

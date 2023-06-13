@@ -137,13 +137,13 @@ $q2 = mysqli_fetch_assoc($query);
                                     </li>
                                     <li>
                                         <a href="profile-settings.html">
-                                            <i class="fa fa-user-cog"></i>
+                                            <i class="fa fa-cog"></i>
                                             <span>Profile Settings</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="../controller/logout.php">
-                                            <i class="fa fa-logout"></i>
+                                        <a href="#" onclick="confirmLogout()">
+                                            <i class="fa fa-sign-out"></i>
                                             <span>Logout</span>
                                         </a>
                                     </li>
@@ -319,6 +319,25 @@ $q2 = mysqli_fetch_assoc($query);
     <!-- Footer End -->
 
 
+    <script>
+        function confirmLogout() {
+            Swal.fire({
+                title: 'Konfirmasi Logout',
+                text: 'Apakah Anda yakin ingin logout?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Logout',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to logout page
+                    window.location.href = '../controller/logout.php';
+                }
+            });
+        }
+    </script>
 
     <!-- import modal sign up -->
 

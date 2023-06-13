@@ -13,7 +13,10 @@ require_once('../controller/session_expired.php');
 
 
 <head>
+    <script src="../css/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="../css/sweetalert2.min.css">
 
+    <script src="../css/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="../konsultan/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="../konsultan/assets/css/style.css">
     <!-- meta tag -->
@@ -130,7 +133,7 @@ require_once('../controller/session_expired.php');
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="../controller/logout.php">
+                                        <a href="#" onclick="confirmLogout()">
                                             <i class="fa fa-sign-out"></i>
                                             <span>Logout</span>
                                         </a>
@@ -217,7 +220,25 @@ require_once('../controller/session_expired.php');
 
 
     <!-- import modal sign up -->
-
+    <script>
+        function confirmLogout() {
+            Swal.fire({
+                title: 'Konfirmasi Logout',
+                text: 'Apakah Anda yakin ingin logout?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Logout',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to logout page
+                    window.location.href = '../controller/logout.php';
+                }
+            });
+        }
+    </script>
 
     <!--  -->
     <!-- All Js -->
