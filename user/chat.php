@@ -424,16 +424,18 @@ require_once('../controller/session_expired.php');
                                                                 // $appointmentTimeFormat = $appointmentDateTime->format("H:i:s");
 
 
-                                                                if (strtotime($currentDateTime) < strtotime($dateTime)) {
-                                                                ?> <p style="text-align: center; font-weight:bold; color:#09c778">Reservasi Anda telah berhasil dilakukan. Saat ini, reservasi Anda sedang dalam tahap menunggu persetujuan dari konsultan yang bersangkutan.</p><?php
-                                                                                                                                                                                                                                                                                } else  if (strtotime($currentDateTime) < strtotime($dateTime) && $row['appoinment_status'] == 'Accept') {
-                                                                                                                                                                                                                                                                                    ?>
+                                                                if (strtotime($currentDateTime) < strtotime($dateTime) && $row['appoinment_status'] == 'Accept') {
+                                                                ?>
                                                                     <p style="text-align: center; font-weight:bold; color:#09c778">Reservasi Anda telah di terima, Silahkan menunggu hingga waktu yang ditentukan.</p>
+                                                                <?php
+                                                                } else if (strtotime($currentDateTime) < strtotime($dateTime)) {
+                                                                ?>
+                                                                    <p style="text-align: center; font-weight:bold; color:#09c778">Reservasi Anda telah berhasil dilakukan. Saat ini, reservasi Anda sedang dalam tahap menunggu persetujuan dari konsultan yang bersangkutan.</p>
 
 
 
                                                                 <?php
-                                                                                                                                                                                                                                                                                } ?>
+                                                                } ?>
 
                                                             </div>
                                                         </div>

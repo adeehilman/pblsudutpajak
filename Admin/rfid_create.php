@@ -28,7 +28,7 @@ include('layouts/header.php');
                         <form action="save_rfid.php" method="post">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">UID</label>
-                                <input type="text" class="form-control" id="uid" name="id" aria-describedby="emailHelp" readonly>
+                                <input type="text" class="form-control" id="uid" name="id" placeholder="UID" aria-describedby="emailHelp" readonly>
                                 <small id="emailHelp" class="form-text text-muted">Tap Kartu RFID </small>
                             </div>
                             <div class="form-group">

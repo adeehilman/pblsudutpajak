@@ -27,8 +27,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['login_user'] = $myusername;
 
 
-        header("location:index2.php");
+        header("location:index.php");
     } else {
+    }
+}
+
+if (isset($_GET['back'])) {
+    $error = $_GET['back'];
+
+    if ($error == "delete") {
+        $query = mysqli_query($db, "DELETE FROM `tb_entry`");
     }
 }
 ?>
@@ -87,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             Login
                                             </a></button>
                                         <hr>
-                                        <a href="rfid.php" class="btn btn-warning  btn-block">
+                                        <a href="rfid.php?back=delete" class="btn btn-warning  btn-block">
                                             <i class="fab fa-scanner-touchscreen"></i> Login with Your Card
                                         </a>
                                     </form>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Serial</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>Data Serial</h1>
+  <div id="data_value"></div>
+
+  <script>
+    var socket = io();
+    var fullOutput = ""; // Menyimpan output lengkap
+  
+    socket.on('message', function(msg) {
+      var hexValue = msg;
+      
+      // Remove spaces from the hexadecimal value
+      hexValue = hexValue.replace(/\s/g, '');
+  
+   // Periksa apakah hasil scan terbaru lebih panjang daripada fullOutput
+   if (hexValue.length > fullOutput.length) {
+    // Menghapus prefiks "0x" jika ada
+    if (hexValue.startsWith("0x")) {
+      hexValue = hexValue.substring(2);
+    }
+    
+    fullOutput = hexValue;
+  }
+  
+      // Tampilkan output lengkap di elemen data_value
+      $('#data_value').text(fullOutput);
+      
+      // Kirim data ke server menggunakan fungsi insertData
+      insertData(fullOutput);
+    });
+
+    // Fungsi untuk mengirim data ke server menggunakan AJAX
+    function insertData(data) {
+      $.ajax({
+        url: '/insertData', // Sesuaikan dengan endpoint yang menangani penyimpanan data di server
+        method: 'POST',
+        data: { message: data },
+        success: function(response) {
+          console.log('Data berhasil disimpan di MySQL');
+        },
+        error: function(error) {
+          console.error('Gagal menyimpan data di MySQL:', error);
+        }
+      });
+    }
+  </script>
+</body>
+</html>
