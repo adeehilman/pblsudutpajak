@@ -26,10 +26,10 @@ while ($row = mysqli_fetch_assoc($result)) {
     $headers .= "Reply-To: email_pengirim@example.com\r\n";
     $headers .= "Content-Type: text/html\r\n";
 
-    ini_set('sendmail_from', 'sudutpajak01@gmail.com');
+
 
     // Mengirim email menggunakan fungsi mail()
-    if (mail($to, $subject, $message, $headers)) {
+    if (@mail($to, $subject, $message, $headers)) {
         echo "Notifikasi email berhasil dikirim untuk Appointment dengan nomor $appoinment_number";
     } else {
         echo "Gagal mengirim notifikasi email untuk Appointment dengan nomor $appoinment_number";
