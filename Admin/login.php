@@ -3,34 +3,57 @@ include("config/connection.php");
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // username and password sent from form 
+    // username and password sent from form
+    $uid = $_POST['username'];
+    $password = $_POST['password'];
 
-    $myusername = mysqli_real_escape_string($db, $_POST['username']);
-    $mypassword = mysqli_real_escape_string($db, $_POST['password']);
+    $login = mysqli_query($db, "SELECT * FROM tb_admin WHERE username='$uid'");
+    $cek = mysqli_num_rows($login);
+    $data = mysqli_fetch_assoc($login);
 
-    $sql = "SELECT LOGIN FROM `USERS` WHERE `LOGIN` = '$myusername' and `PASSWORD` = '$mypassword'";
+    if ($cek > 0) {
+        $hashedPasswordFromDatabase = $data['password'];
 
-    $result = mysqli_query($db, $sql);
-
-    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-
-    $count = mysqli_num_rows($result);
-
-    // If result matched $myusername and $mypassword, table row must be 1 row
-
-    if ($count == 1) {
-        //before PHP 5.3
-        //session_register("myusername");
-
-        //after PHP 5.3
-        $_SESSION['login_user'] = $myusername;
-
-
-        header("location:index.php");
+        // Melakukan verifikasi password menggunakan password_verify()
+        if (password_verify($password, $hashedPasswordFromDatabase)) {
+            // Password cocok, proses login berhasil
+            $_SESSION['username'] = $data['username'];
+            header("location: index.php");
+        } else {
+            // Password tidak cocok
+            // header("location: login.php?error=password");
+            // echo $hashedPasswordFromDatabase, $password;
+        }
     } else {
+        header("location: login.php?error=email");
     }
 }
+// $myusername = mysqli_real_escape_string($db, $_POST['username']);
+// $mypassword = mysqli_real_escape_string($db, $_POST['password']);
+
+// $sql = "SELECT* FROM tb_admin WHERE `username` = '$myusername' and `pasword` = '$mypassword'";
+
+// $result = mysqli_query($db, $sql);
+
+// $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+
+// $count = mysqli_num_rows($result);
+
+// // If result matched $myusername and $mypassword, table row must be 1 row
+
+// if ($count == 1) {
+//     //before PHP 5.3
+//     //session_register("myusername");
+
+//     //after PHP 5.3
+//     $_SESSION['login_user'] = $myusername;
+
+
+//     header("location:index.php");
+// } else {
+// }
+
 
 if (isset($_GET['back'])) {
     $error = $_GET['back'];

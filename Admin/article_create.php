@@ -1,45 +1,42 @@
 <?php
-    include('config/session.php');
-    include('layouts/header.php');
+session_start();
+include('layouts/header.php');
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        $judul = $_POST['judul'];
-        $isi = $_POST['isi'];
-        $kategori = $_POST['kategori'];
-        
-        $namaFile = $_FILES['cover']['name'];
-        $file_ext = pathinfo($namaFile, PATHINFO_EXTENSION);
+    $judul = $_POST['judul'];
+    $isi = $_POST['isi'];
+    $kategori = $_POST['kategori'];
 
-        $namaUpload = time() . '.' . $file_ext;
-        $namaSementara = $_FILES['cover']['tmp_name'];
+    $namaFile = $_FILES['cover']['name'];
+    $file_ext = pathinfo($namaFile, PATHINFO_EXTENSION);
 
-        $sql = "INSERT INTO articles (judul, isi, cover, kategori) VALUES ('$judul', '$isi', '$namaUpload', '$kategori')";
-        $result = mysqli_query($db, $sql);
+    $namaUpload = time() . '.' . $file_ext;
+    $namaSementara = $_FILES['cover']['tmp_name'];
 
-        if($result)
-        {
-            // tentukan lokasi file akan dipindahkan
-            $dirUpload = "cover_article/";
+    $sql = "INSERT INTO articles (judul, isi, cover, kategori) VALUES ('$judul', '$isi', '$namaUpload', '$kategori')";
+    $result = mysqli_query($db, $sql);
 
-            // pindahkan file
-            $terupload = move_uploaded_file($namaSementara, $dirUpload.$namaUpload);
+    if ($result) {
+        // tentukan lokasi file akan dipindahkan
+        $dirUpload = "cover_article/";
 
-            if ($terupload) {
-                echo "Upload berhasil!<br/>";
-                echo "Link: <a href='".$dirUpload.$namaFile."'>".$namaFile."</a>";
-            } else {
-                echo "Upload Gagal!";
-            }
+        // pindahkan file
+        $terupload = move_uploaded_file($namaSementara, $dirUpload . $namaUpload);
+
+        if ($terupload) {
+            echo "Upload berhasil!<br/>";
+            echo "Link: <a href='" . $dirUpload . $namaFile . "'>" . $namaFile . "</a>";
+        } else {
+            echo "Upload Gagal!";
         }
-
-        
     }
+}
 ?>
 
 
- <!-- Basic Card Example -->
- <div class="card shadow mb-4">
+<!-- Basic Card Example -->
+<div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Create Article</h6>
     </div>
@@ -51,24 +48,24 @@
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Isi</label>
-                <textarea name = "isi" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea name="isi" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
             <div class="mb-3">
                 <label for="formFile" class="form-label">Cover Picture *</label>
-                <input name = "cover" class="form-control" type="file" id="formFile">
+                <input name="cover" class="form-control" type="file" id="formFile">
             </div>
             <label for="texarea" class="form-label">Category *</label>
             <div class="input-group mb-3"><br>
-            
-            <select name="kategori" class="custom-select" id="inputGroupSelect02">
-                <option selected>Choose...</option>
-                <option value="Information">Information</option>
-                <option value="Blog">Blog</option>
+
+                <select name="kategori" class="custom-select" id="inputGroupSelect02">
+                    <option selected>Choose...</option>
+                    <option value="Information">Information</option>
+                    <option value="Blog">Blog</option>
                 </select>
-                 <div class="input-group-append">
-               <label class="input-group-text" for="inputGroupSelect02">Options</label>
-                 </div>
-                    </div>
+                <div class="input-group-append">
+                    <label class="input-group-text" for="inputGroupSelect02">Options</label>
+                </div>
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

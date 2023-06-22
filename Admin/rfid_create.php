@@ -1,6 +1,9 @@
 <?php
-include('config/session.php');
+session_start();
 include('layouts/header.php');
+include('config/connection.php');
+
+$query = mysqli_query($db, "DELETE FROM `tb_entry`");
 ?>
 
 <body>

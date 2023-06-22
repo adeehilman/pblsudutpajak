@@ -1,15 +1,39 @@
 <?php
-include('connection.php');
+
 session_start();
 
-$user_check = $_SESSION['login_user'];
+include('config/connection.php');
 
-$ses_sql = mysqli_query($db, "select NAME from USERS where LOGIN = '$user_check' ");
+$uid = $_POST['uid'];
+$password = $_POST['password'];
 
-$row = mysqli_fetch_array($ses_sql, MYSQLI_ASSOC);
+// // Hash password menggunakan password_hash()
+$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-$login_session = $row['NAME'];
+$login = mysqli_query($db, "SELECT * FROM users WHERE uid='$uid'");
 
-if (!isset($_SESSION['login_user'])) {
-   header("location:login.php");
+
+$cek = mysqli_num_rows($login);
+$data = mysqli_fetch_assoc($login);
+
+
+// echo $password, "<br>", $hashedPasswordFromDatabase;
+// cek apakah email ditemukan pada database
+if ($cek > 0) {
+
+
+   $hashedPasswordFromDatabase = $data['password'];
+
+   // Melakukan verifikasi password
+   if ($password == $hashedPasswordFromDatabase) {
+      // Password cocok, proses login berhasil
+      $_SESSION['username'] = $data['username'];
+      header("location: index.php");
+   } else {
+      // Password tidak cocok
+      header("location: login.php?error=password");
+      // echo $hashedPasswordFromDatabase, $password;
+   }
+} else {
+   header("location: login.php?error=email");
 }

@@ -1,9 +1,9 @@
 <?php
-include('config/session.php');
+
 include('layouts/header.php');
 
 $id = $_GET['id'];
-$result = mysqli_query($db, "DELETE FROM articles where id ='$id'" );
+$result = mysqli_query($db, "DELETE FROM articles where id ='$id'");
 
 
 ?>

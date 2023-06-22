@@ -52,7 +52,7 @@ if (isset($_GET['bidang'])) {
                     <div class="col-12 col-sm-6 mb-3">
                         <div class="row">
                             <div class="col-4 ps-0 p-0 m-0">
-                                <img src="img/pakarDua95x95.png" alt="chatIustrasi1" class="m-0 p-0 rounded mx-auto d-block" style="width: 115px; height: 115px;">
+                                <img src="img/konsultan_profil/<?= $q['profil_pic']; ?>" class="m-0 p-0 rounded mx-auto d-block" style="width: 115px; height: 115px;">
                             </div>
                             <div class="col-8 px-2 px-sm-3">
                                 <h5 class="fs-5 mb-0"><?= $q['nama']; ?></h5>

@@ -110,7 +110,25 @@ $q2 = mysqli_fetch_assoc($query);
                                                                     <?php
 
                                                                     if ($q['appoinment_status'] == $accept) {
-                                                                        echo "";
+                                                                    ?> <form action="crud/acc_appt.php" method="post">
+
+                                                                            <input type="text" name="id_appoinment" value="<?= $q['id_appoinment']; ?>" hidden>
+                                                                            <input type="text" name="id_konsultans" value="<?= $q['id_konsultans']; ?>" hidden>
+                                                                            <input type="text" name="id_users" value="<?= $q['id_users']; ?>" hidden>
+                                                                            <input type="text" name="topik" value="<?= $q['topik']; ?>" hidden>
+                                                                            <input type="text" name="hari" value="<?= $q['hari']; ?>" hidden>
+                                                                            <input type="text" name="jam" value="<?= $q['jam']; ?>" hidden>
+                                                                            <input type="text" name="jenis_pajak" value="<?= $q['jenis_pajak']; ?>" hidden>
+                                                                            <input type="text" name="media" value="<?= $q['media']; ?>" hidden>
+                                                                            <input type="text" name="accept" value="Completed" hidden>
+
+                                                                            <input type="text" name="appoinment_number" value="<?= $q['appoinment_number']; ?>" hidden>
+
+                                                                            <button class="btn btn-sm bg-success-light" type="submit" onclick="return confirm('Reservasi diterima?')">
+                                                                                <i class="fas fa-check"></i> Completed
+                                                                            </button>
+                                                                        </form>
+                                                                    <?php
                                                                     } else if ($q['appoinment_status'] == $completed) {
                                                                         echo "";
                                                                     } else {

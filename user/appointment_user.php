@@ -224,6 +224,8 @@ $q2 = mysqli_fetch_assoc($query);
                                                                         echo '<span class="badge badge-pill bg-warning-light">Booked</span>';
                                                                     } else if ($q2['appoinment_status'] == "Cancel") {
                                                                         echo '<span class="badge badge-pill bg-danger-light">Cancel</span>';
+                                                                    } else if ($q2['appoinment_status'] == "Completed") {
+                                                                        echo '<span class="badge badge-pill bg-primary-light">Completed</span>';
                                                                     } else if ($q2['appoinment_status'] == "Accept") {
                                                                         echo '<span class="badge badge-pill bg-success-light">Accept</span>';
                                                                     } else if ($q2['appoinment_status'] == "Reschedule") {
