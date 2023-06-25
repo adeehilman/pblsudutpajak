@@ -349,12 +349,9 @@ require_once('../controller/session_expired.php');
 
                                                                 </div>
 
+
                                                             </div>
-                                                            <form action="#" class="typing-area" hidden>
-                                                                <input type="text" class="incoming_id" name="incoming_id" value="<?php echo $user_id; ?>" hidden>
-                                                                <input type="text" name="message" class="input-field" placeholder="Type Message" autocomplete="off">
-                                                                <button><i class="fa fa-paper-plane"></i></button>
-                                                            </form>
+
                                                             <?php
 
                                                             $query = mysqli_query($koneksi, "SELECT *
@@ -374,7 +371,7 @@ require_once('../controller/session_expired.php');
                                                             ?>
                                                                 <form action="#" class="typing-area">
                                                                     <input type="text" class="incoming_id" name="incoming_id" value="<?php echo $user_id; ?>" hidden>
-                                                                    <input type="text" name="message" class="input-field" placeholder="Type Message" autocomplete="off">
+                                                                    <input type="text" name="message" class="input-field" placeholder="Ty Message" autocomplete="off">
                                                                     <button><i class="fa fa-paper-plane"></i></button>
                                                                 </form>
                                                             <?;
@@ -451,19 +448,7 @@ require_once('../controller/session_expired.php');
 
                                 </div>
 
-                                <!-- /Appointment Tab -->
 
-                                <!-- Prescription Tab -->
-
-                                <!-- /Prescription Tab -->
-
-                                <!-- Medical Records Tab -->
-
-                                <!-- /Medical Records Tab -->
-
-                                <!-- Billing Tab -->
-
-                                <!-- /Billing Tab -->
 
                             </div>
                             <!-- Tab Content -->
@@ -503,7 +488,7 @@ require_once('../controller/session_expired.php');
     <!--  -->
     <script>
         // // Waktu appointment
-        // var appointmentDate = new Date("<?php echo $appointmentDate; ?>");
+
 
         // // Memperbarui countdown setiap detik
         // setInterval(updateCountdown, 1000);
